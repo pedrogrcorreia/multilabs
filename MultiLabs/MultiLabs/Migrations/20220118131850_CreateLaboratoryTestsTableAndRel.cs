@@ -2,7 +2,7 @@
 
 namespace MultiLabs.Migrations
 {
-    public partial class AddLaboratoryTestsRel : Migration
+    public partial class CreateLaboratoryTestsTableAndRel : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -10,15 +10,16 @@ namespace MultiLabs.Migrations
                 name: "LaboratoryTests",
                 columns: table => new
                 {
+                    Id = table.Column<int>(type: "int", nullable: false),
                     LaboratoryId = table.Column<int>(type: "int", nullable: false),
                     TestId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_LaboratoryTests", x => new { x.LaboratoryId, x.TestId });
+                    table.PrimaryKey("PK_LaboratoryTests", x => new { x.LaboratoryId, x.TestId, x.Id });
                     table.ForeignKey(
-                        name: "FK_LaboratoryTests_Laboratories_TestId",
-                        column: x => x.TestId,
+                        name: "FK_LaboratoryTests_Laboratories_LaboratoryId",
+                        column: x => x.LaboratoryId,
                         principalTable: "Laboratories",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -35,7 +36,7 @@ namespace MultiLabs.Migrations
                 keyColumn: "Id",
                 keyValue: 1,
                 columns: new[] { "ConcurrencyStamp", "PasswordHash", "SecurityStamp" },
-                values: new object[] { "d6000d9f-e197-46d1-93ad-15fbdfbe2f19", "AQAAAAEAACcQAAAAEJoWT6DX/KYyAD4dEecn8ufm7sLdeOcexsXEjI+TFyAdjWOB4BrVCIhpczjIqe6Hcg==", "3e7cd409-6ad3-4734-8983-99fca0ec82dd" });
+                values: new object[] { "f3923b37-acbd-430f-844f-c902c36e39cc", "AQAAAAEAACcQAAAAEMfib3IPnPy8L9MZRUqm2eFz+jFlWPVYZE4F9GW0gZJ2NW4n6xNuC+AMqF3iEXzHXA==", "60c53c39-8ba6-44c5-8d1f-29f3e4c59a87" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_LaboratoryTests_TestId",
@@ -53,7 +54,7 @@ namespace MultiLabs.Migrations
                 keyColumn: "Id",
                 keyValue: 1,
                 columns: new[] { "ConcurrencyStamp", "PasswordHash", "SecurityStamp" },
-                values: new object[] { "9aab40c6-759f-4d80-8a8b-3ffe4afb3655", "AQAAAAEAACcQAAAAEEIaG2kdK/qR/XsmCinM1DaF2+66arSXmVtQAd+774P97phWQoelNGLZgoyXKDMVCQ==", "313906c7-7e0a-4961-bfdb-17cd67ffc45e" });
+                values: new object[] { "f98a684c-bac2-4fd0-871c-52d71d1dcbde", "AQAAAAEAACcQAAAAEBqJ+hB3XGtVfCe2NYkvEV+8tgiK+e0u3h9cPUhHYgLIWaoEyukmgGpX2cjDpGnvIw==", "cb84e9a0-3c97-40af-a92e-5535e1716375" });
         }
     }
 }

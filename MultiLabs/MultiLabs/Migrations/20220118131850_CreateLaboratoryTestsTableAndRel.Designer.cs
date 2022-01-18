@@ -10,8 +10,8 @@ using MultiLabs.Data;
 namespace MultiLabs.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220117190538_AddLaboratoryTable")]
-    partial class AddLaboratoryTable
+    [Migration("20220118131850_CreateLaboratoryTestsTableAndRel")]
+    partial class CreateLaboratoryTestsTableAndRel
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -195,12 +195,68 @@ namespace MultiLabs.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int?>("LocalId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
+                    b.HasIndex("LocalId");
+
                     b.ToTable("Laboratories");
+                });
+
+            modelBuilder.Entity("MultiLabs.Models.LaboratoryTest", b =>
+                {
+                    b.Property<int>("LaboratoryId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TestId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
+
+                    b.HasKey("LaboratoryId", "TestId", "Id");
+
+                    b.HasIndex("TestId");
+
+                    b.ToTable("LaboratoryTests");
+                });
+
+            modelBuilder.Entity("MultiLabs.Models.Local", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Address")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Locals");
+                });
+
+            modelBuilder.Entity("MultiLabs.Models.Test", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Tests");
                 });
 
             modelBuilder.Entity("MultiLabs.Models.User", b =>
@@ -274,15 +330,15 @@ namespace MultiLabs.Migrations
                         {
                             Id = 1,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "ca9d580c-3683-42b2-aba1-67b229539a4c",
+                            ConcurrencyStamp = "f3923b37-acbd-430f-844f-c902c36e39cc",
                             Email = "admin@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = true,
                             NormalizedEmail = "ADMIN@GMAIL.COM",
                             NormalizedUserName = "ADMIN@GMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEGC6RJcFfF5hcfdoKLPouzpFj77N5F8cRLW4nvPTQKfF56UUugk+WA6U0kycGBEoyA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEMfib3IPnPy8L9MZRUqm2eFz+jFlWPVYZE4F9GW0gZJ2NW4n6xNuC+AMqF3iEXzHXA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "452f75b7-813a-4ed4-9a1a-2e1f583a48af",
+                            SecurityStamp = "60c53c39-8ba6-44c5-8d1f-29f3e4c59a87",
                             TwoFactorEnabled = false,
                             UserName = "admin@gmail.com"
                         });
@@ -337,6 +393,49 @@ namespace MultiLabs.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("MultiLabs.Models.Laboratory", b =>
+                {
+                    b.HasOne("MultiLabs.Models.Local", "Local")
+                        .WithMany("Laboratories")
+                        .HasForeignKey("LocalId");
+
+                    b.Navigation("Local");
+                });
+
+            modelBuilder.Entity("MultiLabs.Models.LaboratoryTest", b =>
+                {
+                    b.HasOne("MultiLabs.Models.Laboratory", "Laboratory")
+                        .WithMany("LaboratoryTests")
+                        .HasForeignKey("LaboratoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("MultiLabs.Models.Test", "Test")
+                        .WithMany("LaboratoryTests")
+                        .HasForeignKey("TestId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Laboratory");
+
+                    b.Navigation("Test");
+                });
+
+            modelBuilder.Entity("MultiLabs.Models.Laboratory", b =>
+                {
+                    b.Navigation("LaboratoryTests");
+                });
+
+            modelBuilder.Entity("MultiLabs.Models.Local", b =>
+                {
+                    b.Navigation("Laboratories");
+                });
+
+            modelBuilder.Entity("MultiLabs.Models.Test", b =>
+                {
+                    b.Navigation("LaboratoryTests");
                 });
 #pragma warning restore 612, 618
         }

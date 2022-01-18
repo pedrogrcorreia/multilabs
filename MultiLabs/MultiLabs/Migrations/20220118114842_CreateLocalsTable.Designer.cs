@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MultiLabs.Data;
 
 namespace MultiLabs.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220118114842_CreateLocalsTable")]
+    partial class CreateLocalsTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -193,32 +195,12 @@ namespace MultiLabs.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("LocalId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("LocalId");
-
                     b.ToTable("Laboratories");
-                });
-
-            modelBuilder.Entity("MultiLabs.Models.LaboratoryTest", b =>
-                {
-                    b.Property<int>("LaboratoryId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TestId")
-                        .HasColumnType("int");
-
-                    b.HasKey("LaboratoryId", "TestId");
-
-                    b.HasIndex("TestId");
-
-                    b.ToTable("LaboratoryTests");
                 });
 
             modelBuilder.Entity("MultiLabs.Models.Local", b =>
@@ -237,21 +219,6 @@ namespace MultiLabs.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Locals");
-                });
-
-            modelBuilder.Entity("MultiLabs.Models.Test", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Tests");
                 });
 
             modelBuilder.Entity("MultiLabs.Models.User", b =>
@@ -325,15 +292,15 @@ namespace MultiLabs.Migrations
                         {
                             Id = 1,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "a3a700d3-b97e-49d0-9e4b-2fb239c57acc",
+                            ConcurrencyStamp = "83af90fd-7c54-4822-8685-ca3b1970240c",
                             Email = "admin@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = true,
                             NormalizedEmail = "ADMIN@GMAIL.COM",
                             NormalizedUserName = "ADMIN@GMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEB6xPZbNcNoSsCn43dCVKQ8J0OceBzzU8fjL7Pc1FNP10BcdRMeufEm8Dfo4/D6mrw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEIa734zLZE67aGZwV2V0zacQKLRYwLCUeFtaVvkmTy51xxyu5nOdhzos96CcjXQkuA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "2ee450a7-3ead-41f5-b390-72711dc4fbf1",
+                            SecurityStamp = "02f45f2c-3081-4b7d-bdc8-5231bb1d2b05",
                             TwoFactorEnabled = false,
                             UserName = "admin@gmail.com"
                         });
@@ -388,49 +355,6 @@ namespace MultiLabs.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("MultiLabs.Models.Laboratory", b =>
-                {
-                    b.HasOne("MultiLabs.Models.Local", "Local")
-                        .WithMany("Laboratories")
-                        .HasForeignKey("LocalId");
-
-                    b.Navigation("Local");
-                });
-
-            modelBuilder.Entity("MultiLabs.Models.LaboratoryTest", b =>
-                {
-                    b.HasOne("MultiLabs.Models.Laboratory", "Laboratory")
-                        .WithMany("LaboratoryTests")
-                        .HasForeignKey("LaboratoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("MultiLabs.Models.Test", "Test")
-                        .WithMany("LaboratoryTests")
-                        .HasForeignKey("TestId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Laboratory");
-
-                    b.Navigation("Test");
-                });
-
-            modelBuilder.Entity("MultiLabs.Models.Laboratory", b =>
-                {
-                    b.Navigation("LaboratoryTests");
-                });
-
-            modelBuilder.Entity("MultiLabs.Models.Local", b =>
-                {
-                    b.Navigation("Laboratories");
-                });
-
-            modelBuilder.Entity("MultiLabs.Models.Test", b =>
-                {
-                    b.Navigation("LaboratoryTests");
                 });
 #pragma warning restore 612, 618
         }

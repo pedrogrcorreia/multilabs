@@ -29,7 +29,7 @@ namespace MultiLabs.Data {
             builder.Entity<LaboratoryTest>()
                 .HasOne(sp => sp.Laboratory)
                 .WithMany(s => s.LaboratoryTests)
-                .HasForeignKey(sp => sp.TestId);
+                .HasForeignKey(sp => sp.LaboratoryId);
 
             builder.Entity<LaboratoryTest>()
                 .HasOne(sp => sp.Test)

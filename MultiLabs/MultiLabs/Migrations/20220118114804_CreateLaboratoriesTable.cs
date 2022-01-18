@@ -2,7 +2,7 @@
 
 namespace MultiLabs.Migrations
 {
-    public partial class AddLaboratoryTable : Migration
+    public partial class CreateLaboratoriesTable : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -33,7 +33,7 @@ namespace MultiLabs.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { 1, 0, "ca9d580c-3683-42b2-aba1-67b229539a4c", "admin@gmail.com", true, true, null, "ADMIN@GMAIL.COM", "ADMIN@GMAIL.COM", "AQAAAAEAACcQAAAAEGC6RJcFfF5hcfdoKLPouzpFj77N5F8cRLW4nvPTQKfF56UUugk+WA6U0kycGBEoyA==", null, false, "452f75b7-813a-4ed4-9a1a-2e1f583a48af", false, "admin@gmail.com" });
+                values: new object[] { 1, 0, "04c440ec-4524-4193-b391-17d6c3a7af84", "admin@gmail.com", true, true, null, "ADMIN@GMAIL.COM", "ADMIN@GMAIL.COM", "AQAAAAEAACcQAAAAEGCdU46n7vnfHIHx8AW6DXfjy3KUOw//ZgORCv6JjtFZYOxP6wRa/JF5WHWzG7N4eA==", null, false, "3003ef71-7129-4ab1-a62c-f6fec219ea46", false, "admin@gmail.com" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",

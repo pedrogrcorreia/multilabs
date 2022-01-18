@@ -10,8 +10,8 @@ using MultiLabs.Data;
 namespace MultiLabs.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220117192352_AddLaboratoryLocalRel")]
-    partial class AddLaboratoryLocalRel
+    [Migration("20220118114950_AddLaboratoriesLocalsRel")]
+    partial class AddLaboratoriesLocalsRel
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -208,21 +208,6 @@ namespace MultiLabs.Migrations
                     b.ToTable("Laboratories");
                 });
 
-            modelBuilder.Entity("MultiLabs.Models.LaboratoryTest", b =>
-                {
-                    b.Property<int>("LaboratoryId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TestId")
-                        .HasColumnType("int");
-
-                    b.HasKey("LaboratoryId", "TestId");
-
-                    b.HasIndex("TestId");
-
-                    b.ToTable("LaboratoryTests");
-                });
-
             modelBuilder.Entity("MultiLabs.Models.Local", b =>
                 {
                     b.Property<int>("Id")
@@ -230,27 +215,15 @@ namespace MultiLabs.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("Address")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
                     b.ToTable("Locals");
-                });
-
-            modelBuilder.Entity("MultiLabs.Models.Test", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Tests");
                 });
 
             modelBuilder.Entity("MultiLabs.Models.User", b =>
@@ -324,15 +297,15 @@ namespace MultiLabs.Migrations
                         {
                             Id = 1,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "c8547cee-bca2-4695-96d5-637bfb67ea15",
+                            ConcurrencyStamp = "486e87a1-6ca9-43f2-89d1-c498336ed3fd",
                             Email = "admin@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = true,
                             NormalizedEmail = "ADMIN@GMAIL.COM",
                             NormalizedUserName = "ADMIN@GMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEBJXSbnQbj7NEQC5YoIP3Oj+o6qL+auwWBnuRstM1yh3zp0mYfPOdPS7QjR+S58ngw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEFBzmIOmG6ooSK5nRv+YnKpQKYFeawY4eFzrJnu7ylj9yBMdfZHDfRaH8Qtz8PYCLw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "0c1701f4-de38-4bb7-bc80-2c472ac7ec55",
+                            SecurityStamp = "c0a60cca-0aa1-4d28-8d44-2e731984ec79",
                             TwoFactorEnabled = false,
                             UserName = "admin@gmail.com"
                         });
@@ -398,38 +371,9 @@ namespace MultiLabs.Migrations
                     b.Navigation("Local");
                 });
 
-            modelBuilder.Entity("MultiLabs.Models.LaboratoryTest", b =>
-                {
-                    b.HasOne("MultiLabs.Models.Laboratory", "Laboratory")
-                        .WithMany("LaboratoryTests")
-                        .HasForeignKey("TestId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("MultiLabs.Models.Test", "Test")
-                        .WithMany("LaboratoryTests")
-                        .HasForeignKey("TestId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Laboratory");
-
-                    b.Navigation("Test");
-                });
-
-            modelBuilder.Entity("MultiLabs.Models.Laboratory", b =>
-                {
-                    b.Navigation("LaboratoryTests");
-                });
-
             modelBuilder.Entity("MultiLabs.Models.Local", b =>
                 {
                     b.Navigation("Laboratories");
-                });
-
-            modelBuilder.Entity("MultiLabs.Models.Test", b =>
-                {
-                    b.Navigation("LaboratoryTests");
                 });
 #pragma warning restore 612, 618
         }

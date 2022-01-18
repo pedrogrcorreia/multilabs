@@ -2,21 +2,22 @@
 
 namespace MultiLabs.Migrations
 {
-    public partial class AddTestsTable : Migration
+    public partial class CreateLocalsTable : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Tests",
+                name: "Locals",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Address = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Tests", x => x.Id);
+                    table.PrimaryKey("PK_Locals", x => x.Id);
                 });
 
             migrationBuilder.UpdateData(
@@ -24,20 +25,20 @@ namespace MultiLabs.Migrations
                 keyColumn: "Id",
                 keyValue: 1,
                 columns: new[] { "ConcurrencyStamp", "PasswordHash", "SecurityStamp" },
-                values: new object[] { "9aab40c6-759f-4d80-8a8b-3ffe4afb3655", "AQAAAAEAACcQAAAAEEIaG2kdK/qR/XsmCinM1DaF2+66arSXmVtQAd+774P97phWQoelNGLZgoyXKDMVCQ==", "313906c7-7e0a-4961-bfdb-17cd67ffc45e" });
+                values: new object[] { "83af90fd-7c54-4822-8685-ca3b1970240c", "AQAAAAEAACcQAAAAEIa734zLZE67aGZwV2V0zacQKLRYwLCUeFtaVvkmTy51xxyu5nOdhzos96CcjXQkuA==", "02f45f2c-3081-4b7d-bdc8-5231bb1d2b05" });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Tests");
+                name: "Locals");
 
             migrationBuilder.UpdateData(
                 table: "AspNetUsers",
                 keyColumn: "Id",
                 keyValue: 1,
                 columns: new[] { "ConcurrencyStamp", "PasswordHash", "SecurityStamp" },
-                values: new object[] { "f2f470bc-23c9-4b62-b0dc-009be1c5041b", "AQAAAAEAACcQAAAAEPBjTG9dxWK4Yh/qDM+Uvc0gA8Mwun/81/Ur5UOTLCNylxscPtR4OL+fFypy6B+EYA==", "4af6fc47-fc17-42a0-b7c0-c11e695c4ecd" });
+                values: new object[] { "04c440ec-4524-4193-b391-17d6c3a7af84", "AQAAAAEAACcQAAAAEGCdU46n7vnfHIHx8AW6DXfjy3KUOw//ZgORCv6JjtFZYOxP6wRa/JF5WHWzG7N4eA==", "3003ef71-7129-4ab1-a62c-f6fec219ea46" });
         }
     }
 }

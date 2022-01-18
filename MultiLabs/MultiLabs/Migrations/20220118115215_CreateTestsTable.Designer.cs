@@ -10,8 +10,8 @@ using MultiLabs.Data;
 namespace MultiLabs.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220117190800_AddTestsTable")]
-    partial class AddTestsTable
+    [Migration("20220118115215_CreateTestsTable")]
+    partial class CreateTestsTable
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -195,10 +195,15 @@ namespace MultiLabs.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int?>("LocalId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("LocalId");
 
                     b.ToTable("Laboratories");
                 });
@@ -209,6 +214,9 @@ namespace MultiLabs.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Address")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
@@ -304,15 +312,15 @@ namespace MultiLabs.Migrations
                         {
                             Id = 1,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "9aab40c6-759f-4d80-8a8b-3ffe4afb3655",
+                            ConcurrencyStamp = "f98a684c-bac2-4fd0-871c-52d71d1dcbde",
                             Email = "admin@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = true,
                             NormalizedEmail = "ADMIN@GMAIL.COM",
                             NormalizedUserName = "ADMIN@GMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEEIaG2kdK/qR/XsmCinM1DaF2+66arSXmVtQAd+774P97phWQoelNGLZgoyXKDMVCQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEBqJ+hB3XGtVfCe2NYkvEV+8tgiK+e0u3h9cPUhHYgLIWaoEyukmgGpX2cjDpGnvIw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "313906c7-7e0a-4961-bfdb-17cd67ffc45e",
+                            SecurityStamp = "cb84e9a0-3c97-40af-a92e-5535e1716375",
                             TwoFactorEnabled = false,
                             UserName = "admin@gmail.com"
                         });
@@ -367,6 +375,20 @@ namespace MultiLabs.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("MultiLabs.Models.Laboratory", b =>
+                {
+                    b.HasOne("MultiLabs.Models.Local", "Local")
+                        .WithMany("Laboratories")
+                        .HasForeignKey("LocalId");
+
+                    b.Navigation("Local");
+                });
+
+            modelBuilder.Entity("MultiLabs.Models.Local", b =>
+                {
+                    b.Navigation("Laboratories");
                 });
 #pragma warning restore 612, 618
         }

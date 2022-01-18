@@ -2,7 +2,7 @@
 
 namespace MultiLabs.Migrations
 {
-    public partial class AddLaboratoryLocalRel : Migration
+    public partial class AddLaboratoriesLocalsRel : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -17,7 +17,7 @@ namespace MultiLabs.Migrations
                 keyColumn: "Id",
                 keyValue: 1,
                 columns: new[] { "ConcurrencyStamp", "PasswordHash", "SecurityStamp" },
-                values: new object[] { "c8547cee-bca2-4695-96d5-637bfb67ea15", "AQAAAAEAACcQAAAAEBJXSbnQbj7NEQC5YoIP3Oj+o6qL+auwWBnuRstM1yh3zp0mYfPOdPS7QjR+S58ngw==", "0c1701f4-de38-4bb7-bc80-2c472ac7ec55" });
+                values: new object[] { "486e87a1-6ca9-43f2-89d1-c498336ed3fd", "AQAAAAEAACcQAAAAEFBzmIOmG6ooSK5nRv+YnKpQKYFeawY4eFzrJnu7ylj9yBMdfZHDfRaH8Qtz8PYCLw==", "c0a60cca-0aa1-4d28-8d44-2e731984ec79" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Laboratories_LocalId",
@@ -52,7 +52,7 @@ namespace MultiLabs.Migrations
                 keyColumn: "Id",
                 keyValue: 1,
                 columns: new[] { "ConcurrencyStamp", "PasswordHash", "SecurityStamp" },
-                values: new object[] { "d6000d9f-e197-46d1-93ad-15fbdfbe2f19", "AQAAAAEAACcQAAAAEJoWT6DX/KYyAD4dEecn8ufm7sLdeOcexsXEjI+TFyAdjWOB4BrVCIhpczjIqe6Hcg==", "3e7cd409-6ad3-4734-8983-99fca0ec82dd" });
+                values: new object[] { "83af90fd-7c54-4822-8685-ca3b1970240c", "AQAAAAEAACcQAAAAEIa734zLZE67aGZwV2V0zacQKLRYwLCUeFtaVvkmTy51xxyu5nOdhzos96CcjXQkuA==", "02f45f2c-3081-4b7d-bdc8-5231bb1d2b05" });
         }
     }
 }
