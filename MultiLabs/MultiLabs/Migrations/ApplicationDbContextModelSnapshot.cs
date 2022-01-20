@@ -164,6 +164,56 @@ namespace MultiLabs.Migrations
                         {
                             UserId = 1,
                             RoleId = 1
+                        },
+                        new
+                        {
+                            UserId = 6,
+                            RoleId = 3
+                        },
+                        new
+                        {
+                            UserId = 7,
+                            RoleId = 3
+                        },
+                        new
+                        {
+                            UserId = 8,
+                            RoleId = 3
+                        },
+                        new
+                        {
+                            UserId = 9,
+                            RoleId = 3
+                        },
+                        new
+                        {
+                            UserId = 10,
+                            RoleId = 3
+                        },
+                        new
+                        {
+                            UserId = 11,
+                            RoleId = 3
+                        },
+                        new
+                        {
+                            UserId = 12,
+                            RoleId = 3
+                        },
+                        new
+                        {
+                            UserId = 13,
+                            RoleId = 3
+                        },
+                        new
+                        {
+                            UserId = 14,
+                            RoleId = 3
+                        },
+                        new
+                        {
+                            UserId = 15,
+                            RoleId = 3
                         });
                 });
 
@@ -199,9 +249,14 @@ namespace MultiLabs.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("UserId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("LocalId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Laboratories");
                 });
@@ -219,6 +274,21 @@ namespace MultiLabs.Migrations
                     b.HasIndex("TestId");
 
                     b.ToTable("LaboratoryTests");
+                });
+
+            modelBuilder.Entity("MultiLabs.Models.LaboratoryTesters", b =>
+                {
+                    b.Property<int>("LaboratoryId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("LaboratoryId", "UserId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("LaboratoryTesters");
                 });
 
             modelBuilder.Entity("MultiLabs.Models.Local", b =>
@@ -239,6 +309,37 @@ namespace MultiLabs.Migrations
                     b.ToTable("Locals");
                 });
 
+            modelBuilder.Entity("MultiLabs.Models.Schedule", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("ClientId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("DateTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("LaboratoryId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("TestId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TesterId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("LaboratoryId");
+
+                    b.HasIndex("TestId");
+
+                    b.ToTable("Schedules");
+                });
+
             modelBuilder.Entity("MultiLabs.Models.Test", b =>
                 {
                     b.Property<int>("Id")
@@ -252,6 +353,29 @@ namespace MultiLabs.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Tests");
+                });
+
+            modelBuilder.Entity("MultiLabs.Models.TimeSlots", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("AvailableSlots")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("DateTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("LaboratoryId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("LaboratoryId");
+
+                    b.ToTable("TimeSlots");
                 });
 
             modelBuilder.Entity("MultiLabs.Models.User", b =>
@@ -325,17 +449,177 @@ namespace MultiLabs.Migrations
                         {
                             Id = 1,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "a3a700d3-b97e-49d0-9e4b-2fb239c57acc",
+                            ConcurrencyStamp = "22937bd8-134e-48e8-9dba-e547ed5c8f77",
                             Email = "admin@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = true,
                             NormalizedEmail = "ADMIN@GMAIL.COM",
                             NormalizedUserName = "ADMIN@GMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEB6xPZbNcNoSsCn43dCVKQ8J0OceBzzU8fjL7Pc1FNP10BcdRMeufEm8Dfo4/D6mrw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEPuh7Y+6vxNZpSl/0T8FMTV2NNaMxYNBSbGTWJq5qE8f2Fg9n4rh12qjkw3yRT50ow==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "2ee450a7-3ead-41f5-b390-72711dc4fbf1",
+                            SecurityStamp = "6bb75983-6b42-48ea-9ee8-7e1e40cb489e",
                             TwoFactorEnabled = false,
                             UserName = "admin@gmail.com"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "bf6f9adf-6e17-4d58-8738-c130713dbff0",
+                            Email = "tester6@gmail.com",
+                            EmailConfirmed = true,
+                            LockoutEnabled = true,
+                            NormalizedEmail = "TESTER6@GMAIL.COM",
+                            NormalizedUserName = "TESTER6@GMAIL.COM",
+                            PasswordHash = "AQAAAAEAACcQAAAAECo3dkFRmRplz/TOoulGah582CQYaZw9zROsco2jdRv61wUUezewiF377a32cupP+w==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "a6703e18-3b1c-4a0b-a12d-d524bfb74db2",
+                            TwoFactorEnabled = false,
+                            UserName = "tester6@gmail.com"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "a950feae-678d-486f-beb4-8f39f11503f8",
+                            Email = "tester7@gmail.com",
+                            EmailConfirmed = true,
+                            LockoutEnabled = true,
+                            NormalizedEmail = "TESTER7@GMAIL.COM",
+                            NormalizedUserName = "TESTER7@GMAIL.COM",
+                            PasswordHash = "AQAAAAEAACcQAAAAEJfuLV/LEQoQAWRgkGWQMNyOh+G1+Mswa0QqYuOqx/lrcsHSusrGOd3Xf+rocy05vw==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "bbb57a4a-1b8d-4490-9e03-2fa499df81e6",
+                            TwoFactorEnabled = false,
+                            UserName = "tester7@gmail.com"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "63b1ed9a-f2f7-4a20-9ac1-7382a7e01b50",
+                            Email = "tester8@gmail.com",
+                            EmailConfirmed = true,
+                            LockoutEnabled = true,
+                            NormalizedEmail = "TESTER8@GMAIL.COM",
+                            NormalizedUserName = "TESTER8@GMAIL.COM",
+                            PasswordHash = "AQAAAAEAACcQAAAAEMxn4veKXI0DmTMKhL9O+fN/EI+BTA7gpWDat7yDgyT+Wu3dZfYARXw0giww/ycSFA==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "155f5848-0531-445f-81e9-b2cafdad1577",
+                            TwoFactorEnabled = false,
+                            UserName = "tester8@gmail.com"
+                        },
+                        new
+                        {
+                            Id = 9,
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "49047475-08fc-40fa-a216-41dde2ec1623",
+                            Email = "tester9@gmail.com",
+                            EmailConfirmed = true,
+                            LockoutEnabled = true,
+                            NormalizedEmail = "TESTER9@GMAIL.COM",
+                            NormalizedUserName = "TESTER9@GMAIL.COM",
+                            PasswordHash = "AQAAAAEAACcQAAAAEEemx7hd6BdF6tcNMEsMJzESqtqxPaSDsl2NdWFM0+hNiza+rJ8UKCyY5wYt8shNaQ==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "fd9fbd46-be3c-4439-92c7-c5e78ee1fa42",
+                            TwoFactorEnabled = false,
+                            UserName = "tester9@gmail.com"
+                        },
+                        new
+                        {
+                            Id = 10,
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "8bc1ee26-9f93-4f10-89eb-f2ce4c179d84",
+                            Email = "tester10@gmail.com",
+                            EmailConfirmed = true,
+                            LockoutEnabled = true,
+                            NormalizedEmail = "TESTER10@GMAIL.COM",
+                            NormalizedUserName = "TESTER10@GMAIL.COM",
+                            PasswordHash = "AQAAAAEAACcQAAAAELWrlNSp0SqB4UUxlRBbLkm05bDRrjbYK7stDJ32nkhXn6NRdBkpPH7Ta6+v5IW7IQ==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "50f7c695-824f-4fb8-bf3f-46655b3982de",
+                            TwoFactorEnabled = false,
+                            UserName = "tester10@gmail.com"
+                        },
+                        new
+                        {
+                            Id = 11,
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "c70ed4cc-330f-4b89-93c4-894b8a5ece3f",
+                            Email = "tester11@gmail.com",
+                            EmailConfirmed = true,
+                            LockoutEnabled = true,
+                            NormalizedEmail = "TESTER11@GMAIL.COM",
+                            NormalizedUserName = "TESTER11@GMAIL.COM",
+                            PasswordHash = "AQAAAAEAACcQAAAAEO9Nuan6DUsPy4twBQdvvXzludm7SFRb4fUyVQP49e/MhOnmfBckuQrSg7O8elLH9w==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "5d10d72b-3c67-40ba-a210-74d0cd68b1fb",
+                            TwoFactorEnabled = false,
+                            UserName = "tester11@gmail.com"
+                        },
+                        new
+                        {
+                            Id = 12,
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "017e1ab7-f117-4ab7-ac21-a7cdf3877230",
+                            Email = "tester12@gmail.com",
+                            EmailConfirmed = true,
+                            LockoutEnabled = true,
+                            NormalizedEmail = "TESTER12@GMAIL.COM",
+                            NormalizedUserName = "TESTER12@GMAIL.COM",
+                            PasswordHash = "AQAAAAEAACcQAAAAEBpHENQvK1eEQ470IfED4/D+jGIZrpPrqhuSTKBNi5w9Sjl+zdxOtINOzKqVw4u7YA==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "18b4bb0a-75bf-4b7f-bb52-629163618291",
+                            TwoFactorEnabled = false,
+                            UserName = "tester12@gmail.com"
+                        },
+                        new
+                        {
+                            Id = 13,
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "e8925b4c-4aa4-4be5-8fd0-8dac2ca20827",
+                            Email = "tester13@gmail.com",
+                            EmailConfirmed = true,
+                            LockoutEnabled = true,
+                            NormalizedEmail = "TESTER13@GMAIL.COM",
+                            NormalizedUserName = "TESTER13@GMAIL.COM",
+                            PasswordHash = "AQAAAAEAACcQAAAAEKGfbgh635hyyF5C1SPcqcJApx41VoSqjKrpZa3UYZ4/UDtB5YVpTaM9KcDRu3eIJg==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "ec6e2995-7392-4142-b736-fa72801ec4a9",
+                            TwoFactorEnabled = false,
+                            UserName = "tester13@gmail.com"
+                        },
+                        new
+                        {
+                            Id = 14,
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "0f3a730e-bec8-45e1-866c-55f12ca376a6",
+                            Email = "tester14@gmail.com",
+                            EmailConfirmed = true,
+                            LockoutEnabled = true,
+                            NormalizedEmail = "TESTER14@GMAIL.COM",
+                            NormalizedUserName = "TESTER14@GMAIL.COM",
+                            PasswordHash = "AQAAAAEAACcQAAAAEKNdBhWeQMdhxJJOqDHUuVbKRNNqdiKmgGDEIiL4F8loMU+eqt42zm78Fr3G0UUjmQ==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "b8562d0d-24b6-4a58-a8c8-0cbee40df111",
+                            TwoFactorEnabled = false,
+                            UserName = "tester14@gmail.com"
+                        },
+                        new
+                        {
+                            Id = 15,
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "f8012992-c9af-4df1-af44-de145ca37f1a",
+                            Email = "tester15@gmail.com",
+                            EmailConfirmed = true,
+                            LockoutEnabled = true,
+                            NormalizedEmail = "TESTER15@GMAIL.COM",
+                            NormalizedUserName = "TESTER15@GMAIL.COM",
+                            PasswordHash = "AQAAAAEAACcQAAAAEEO6cTtm0wj6rli8Cal9+5NaMst3nRsglLD33bt5NSUawDxnU/qXrJSbkJEYoWjKcQ==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "1898e05d-a6cf-4b51-a96e-4c2e9c094334",
+                            TwoFactorEnabled = false,
+                            UserName = "tester15@gmail.com"
                         });
                 });
 
@@ -396,7 +680,13 @@ namespace MultiLabs.Migrations
                         .WithMany("Laboratories")
                         .HasForeignKey("LocalId");
 
+                    b.HasOne("MultiLabs.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+
                     b.Navigation("Local");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("MultiLabs.Models.LaboratoryTest", b =>
@@ -418,8 +708,53 @@ namespace MultiLabs.Migrations
                     b.Navigation("Test");
                 });
 
+            modelBuilder.Entity("MultiLabs.Models.LaboratoryTesters", b =>
+                {
+                    b.HasOne("MultiLabs.Models.Laboratory", "Laboratory")
+                        .WithMany("LaboratoryTesters")
+                        .HasForeignKey("LaboratoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("MultiLabs.Models.User", "User")
+                        .WithMany("LaboratoryTesters")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Laboratory");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("MultiLabs.Models.Schedule", b =>
+                {
+                    b.HasOne("MultiLabs.Models.Laboratory", "Laboratory")
+                        .WithMany()
+                        .HasForeignKey("LaboratoryId");
+
+                    b.HasOne("MultiLabs.Models.Test", "Test")
+                        .WithMany()
+                        .HasForeignKey("TestId");
+
+                    b.Navigation("Laboratory");
+
+                    b.Navigation("Test");
+                });
+
+            modelBuilder.Entity("MultiLabs.Models.TimeSlots", b =>
+                {
+                    b.HasOne("MultiLabs.Models.Laboratory", "Laboratory")
+                        .WithMany()
+                        .HasForeignKey("LaboratoryId");
+
+                    b.Navigation("Laboratory");
+                });
+
             modelBuilder.Entity("MultiLabs.Models.Laboratory", b =>
                 {
+                    b.Navigation("LaboratoryTesters");
+
                     b.Navigation("LaboratoryTests");
                 });
 
@@ -431,6 +766,11 @@ namespace MultiLabs.Migrations
             modelBuilder.Entity("MultiLabs.Models.Test", b =>
                 {
                     b.Navigation("LaboratoryTests");
+                });
+
+            modelBuilder.Entity("MultiLabs.Models.User", b =>
+                {
+                    b.Navigation("LaboratoryTesters");
                 });
 #pragma warning restore 612, 618
         }

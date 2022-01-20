@@ -17,6 +17,12 @@ namespace MultiLabs.Data {
 
         public DbSet<LaboratoryTest> LaboratoryTests { get; set; }
 
+        public DbSet<Schedule> Schedules { get; set; }
+
+        public DbSet<TimeSlots> TimeSlots { get; set; }
+
+        public DbSet<LaboratoryTesters> LaboratoryTesters { get; set; }
+
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options) {
         }
@@ -36,6 +42,17 @@ namespace MultiLabs.Data {
                 .WithMany(p => p.LaboratoryTests)
                 .HasForeignKey(sp => sp.TestId);
 
+            builder.Entity<LaboratoryTesters>().HasKey(fp => new { fp.LaboratoryId, fp.UserId });
+
+            builder.Entity<LaboratoryTesters>()
+                .HasOne(sp => sp.Laboratory)
+                .WithMany(s => s.LaboratoryTesters)
+                .HasForeignKey(sp => sp.LaboratoryId);
+
+            builder.Entity<LaboratoryTesters>()
+                .HasOne(sp => sp.User)
+                .WithMany(p => p.LaboratoryTesters)
+                .HasForeignKey(sp => sp.UserId);
 
             this.SeedRoles(builder);
             this.SeedUsers(builder);
@@ -59,6 +76,25 @@ namespace MultiLabs.Data {
             user.PasswordHash = passwordHasher.HashPassword(user, "123Vv#");
 
             builder.Entity<User>().HasData(user);
+
+            for(int i = 6; i<16; i++) {
+                email = new string("tester" + i + "@gmail.com");
+                user = new User() {
+                    Id = i,
+                    UserName = email,
+                    Email = email,
+                    NormalizedUserName = email.ToUpper(),
+                    NormalizedEmail = email.ToUpper(),
+                    LockoutEnabled = true,
+                    EmailConfirmed = true,
+                    SecurityStamp = Guid.NewGuid().ToString()
+                };
+
+                passwordHasher = new PasswordHasher<User>();
+                user.PasswordHash = passwordHasher.HashPassword(user, "123Vv#");
+
+                builder.Entity<User>().HasData(user);
+            }
         }
 
         private void SeedRoles(ModelBuilder builder) {
@@ -69,6 +105,13 @@ namespace MultiLabs.Data {
             builder.Entity<IdentityUserRole<int>>().HasData(
                 new IdentityUserRole<int>() { RoleId = 1, UserId = 1 }
             );
+            for (int i = 6; i < 16; i++) {
+                builder.Entity<IdentityUserRole<int>>().HasData(
+                    new IdentityUserRole<int>() { RoleId = 3, UserId = i }
+                );
+            }
         }
+
+
     }
 }

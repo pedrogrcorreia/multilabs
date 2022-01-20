@@ -7,6 +7,10 @@
 <h1>Create</h1>
 
 <h4>LaboratoryTest</h4>
+@if (ViewBag.Error != null)
+{
+    <p style="color:red">@ViewBag.Error</p>
+}
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -28,7 +32,7 @@
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index" asp-route-LaboratoryId="@ViewBag.LabId">Back to List</a>
 </div>
 
 @section Scripts {

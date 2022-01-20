@@ -11,6 +11,8 @@ namespace MultiLabs.Models {
 
         public string Name { get; set; }
 
+        //public int? LaboratoryTestersId { get; set; }
+        //public LaboratoryTesters LaboratoryTesters { get; set; }
 
         public virtual ICollection<LaboratoryTest> LaboratoryTests { get; set; }
       

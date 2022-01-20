@@ -4,9 +4,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using MultiLabs.Data;
 using MultiLabs.Models;
+using MultiLabs.ViewModels;
 
 namespace MultiLabs.Controllers
 {
@@ -25,14 +27,15 @@ namespace MultiLabs.Controllers
             if (LaboratoryId == null) {
                 applicationDbContext = _context.LaboratoryTests.Include(l => l.Laboratory).Include(l => l.Test);
             }
-
+            ViewBag.LaboratoryId = LaboratoryId;
             applicationDbContext = _context.LaboratoryTests.Include(l => l.Laboratory).Include(l => l.Test).Where(l => l.LaboratoryId == LaboratoryId);
             return View(await applicationDbContext.ToListAsync());
         }
 
         // GET: LaboratoryTests/Create
-        public IActionResult Create()
+        public IActionResult Create(int? LaboratoryId)
         {
+            ViewBag.LabId = LaboratoryId;
             ViewData["LaboratoryId"] = new SelectList(_context.Laboratories, "Id", "Name");
             ViewData["TestId"] = new SelectList(_context.Tests, "Id", "Name");
             return View();
@@ -47,9 +50,16 @@ namespace MultiLabs.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Add(laboratoryTest);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                try {
+                    _context.Add(laboratoryTest);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index), new { LaboratoryId =  laboratoryTest.LaboratoryId } );
+                } catch(DbUpdateException e) {
+                    ViewData["LaboratoryId"] = new SelectList(_context.Laboratories, "Id", "Name", laboratoryTest.LaboratoryId);
+                    ViewData["TestId"] = new SelectList(_context.Tests, "Id", "Name", laboratoryTest.TestId);
+                    ViewBag.Error = "That laboratory already has that test.";
+                    return View(laboratoryTest);
+                }
             }
             ViewData["LaboratoryId"] = new SelectList(_context.Laboratories, "Id", "Name", laboratoryTest.LaboratoryId);
             ViewData["TestId"] = new SelectList(_context.Tests, "Id", "Name", laboratoryTest.TestId);
@@ -84,7 +94,7 @@ namespace MultiLabs.Controllers
             var laboratoryTest = await _context.LaboratoryTests.FindAsync(LaboratoryId, TestId);
             _context.LaboratoryTests.Remove(laboratoryTest);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(Index), new { LaboratoryId = LaboratoryId }); ;
         }
 
         private bool LaboratoryTestExists(int LaboratoryId, int TestId)
