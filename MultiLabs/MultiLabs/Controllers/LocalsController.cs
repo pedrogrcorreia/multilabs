@@ -7,9 +7,12 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using MultiLabs.Data;
 using MultiLabs.Models;
+using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
 
 namespace MultiLabs.Controllers
 {
+    [Authorize(Roles="Admin")]
     public class LocalsController : Controller
     {
         private readonly ApplicationDbContext _context;

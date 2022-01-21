@@ -1,0 +1,50 @@
+﻿@model IEnumerable<MultiLabs.Models.Schedule>
+
+@{
+    ViewData["Title"] = "Meus Testes";
+}
+
+<h1>Meus Testes</h1>
+<h5>Testes pelos quais é responsável</h5>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Test)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Laboratory)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DateTime)
+            </th>
+            <th></th>
+            <th>
+                @Html.DisplayNameFor(model => model.Result)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Test.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Laboratory.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateTime)
+            </td>
+            <td>
+                <a asp-action="Details" asp-route-id="@item.Id">Ver Detalhes</a> |
+                <a asp-action="Edit" asp-route-id="@item.Id">Tratar agendamento</a>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Result.Name)
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

@@ -18,16 +18,43 @@
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Laboratories" asp-action="Index">Laboratories</a>
-                        </li>
+                        @if (User.IsInRole("Client")) {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Laboratories" asp-action="Index">Laboratórios</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Laboratories" asp-action="Index">Agendar</a>
+                            </li>
+                        }
+                        @if (User.IsInRole("LabManager")) {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Laboratories" asp-action="Index">Laboratórios</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="LaboratoryTesters" asp-action="Index">Técnicos</a>
+                            </li>
+                        }
+                        @if (User.IsInRole("LabTester")) {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Laboratories" asp-action="Index">Laboratórios</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Schedules" asp-action="Index">Agendamentos</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Schedules" asp-action="IndexTester">Meus Testes</a>
+                            </li>
+                        }
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
                     </ul>
+                    @if (User.IsInRole("LabTester")) {
+                        <form class="d-flex" asp-action="Index" asp-controller="Schedules" method="get">
+                            <input class="form-control me-2" type="search" placeholder="Cliente" aria-label="Search" name="search">
+                            <button class="btn btn-sm btn-outline-secondary" type="submit">Procurar</button>
+                        </form>
+                    }
                     <partial name="_LoginPartial" />
                 </div>
             </div>

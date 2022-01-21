@@ -4,11 +4,12 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
-
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+<h1>Todos os Agendamentos</h1>
+<h5>Agendamentos dos seus laborátorios</h5>
+@if (ViewBag.Error != null)
+{
+    <p style="color:red">@ViewBag.Error</p>
+}
 <table class="table">
     <thead>
         <tr>
@@ -28,20 +29,31 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Test.Id)
+                @Html.DisplayFor(modelItem => item.Test.Name)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Laboratory.Id)
+                @Html.DisplayFor(modelItem => item.Laboratory.Name)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.DateTime)
             </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
+            @if(User.IsInRole("LabTester")){
+                <td>
+                    <a asp-action="Details" asp-route-id="@item.Id">Ver detalhes</a> |
+                    @if (@item.TesterId == 1) {
+                        <a asp-action="SelectSchedule" asp-route-id="@item.Id">Selecionar agendamento</a>
+                    }else{
+                        <a style="color:green; font-size:10pt">Já tem um técnico responsável.</a>
+                    }                    
+                </td>
+            }
+            @if (User.IsInRole("Client")) {
+                <td>
+                    <a asp-action="Details" asp-route-id="@item.Id">Ver detalhes</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Cancelar agendamento</a>
+                </td>
+            }
+            </tr>
 }
     </tbody>
 </table>

@@ -1,8 +1,52 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@model IEnumerable<MultiLabs.Models.LaboratoryTest>
+
+@{
+    ViewData["Title"] = "Index";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<h1>Lista de Testes</h1>
+
+<form asp-action="Index" asp-controller="Home" method="get">
+    <div class="form-inline">
+        <label>Filter by category:</label>&nbsp;
+        <div class="form-group">
+            <select name="local" asp-items="@ViewBag.Locals" class="form-control"></select>
+        </div>
+        <div class="form-group">
+            &nbsp;<button class="btn btn-info" type="submit">Filter</button>
+        </div>
+    </div>
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Test)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Laboratory.Local.Name)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Test.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Laboratory.Local.Name)
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+
+<form asp-action="Index" asp-controller="Home" method="get">
+    <div class = "form-inline">
+        &nbsp;<button class="btn btn-info" type="submit">Remove filter</button>
+        <input type="hidden" name="local" id="local" value="" />
+    </div>
+</form>

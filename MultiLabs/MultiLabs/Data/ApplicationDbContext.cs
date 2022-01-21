@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using MultiLabs.Models;
+using MultiLabs.Results;
 using MultiLabs.Roles;
 using System;
 using System.Collections.Generic;
@@ -22,6 +23,8 @@ namespace MultiLabs.Data {
         public DbSet<TimeSlots> TimeSlots { get; set; }
 
         public DbSet<LaboratoryTesters> LaboratoryTesters { get; set; }
+
+        public DbSet<Result> Results { get; set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options) {
@@ -56,7 +59,9 @@ namespace MultiLabs.Data {
 
             this.SeedRoles(builder);
             this.SeedUsers(builder);
-            this.SeedUserRoles(builder); 
+            this.SeedUserRoles(builder);
+
+            this.SeedResults(builder);
         }
 
         private void SeedUsers(ModelBuilder builder) {
@@ -112,6 +117,9 @@ namespace MultiLabs.Data {
             }
         }
 
+        private void SeedResults(ModelBuilder builder) {
+            builder.Entity<Result>().HasData(ResultsUtils.All);
+        }
 
     }
 }

@@ -5,10 +5,11 @@
 }
 
 <h1>Index</h1>
-
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+@if (User.IsInRole("LabManager")) {
+    <p>
+        <a asp-action="Create">Create New</a>
+    </p>
+}
 <table class="table">
     <thead>
         <tr>
@@ -23,20 +24,36 @@
     </thead>
     <tbody>
 @foreach (var item in Model) {
-        <tr>
-            <td>
-                @*Html.DisplayFor(modelItem => item.Name)*@
-                @Html.ActionLink(item.Name, "Index", "LaboratoryTests", new { LaboratoryId = item.Id}, null)
+            <tr>
+                <td>
+                    @*Html.DisplayFor(modelItem => item.Name)*@
+                    @if (User.IsInRole("LabManager")) {
+                        @Html.ActionLink(item.Name, "Index", "LaboratoryTests", new { LaboratoryId = item.Id}, null)
+                    }else{
+                        @Html.DisplayFor(modelItem => item.Name)
+                    }
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Local.Name)
             </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
+            @if (User.IsInRole("LabManager")) {
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            }
+                @if (User.IsInRole("LabTester")) {
+                    <td>
+                        @Html.ActionLink("Ver agendamentos", "Index", "Schedules", new { LaboratoryId = item.Id}, null)
+                    </td>
+                }
+                @if (User.IsInRole("Client")) {
+                    <td>
+                         @Html.ActionLink("Agendar", "Create", "Schedules", new { LaboratoryId = item.Id}, null)
+                    </td>
+                }
+            </tr>
 }
     </tbody>
 </table>

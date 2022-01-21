@@ -309,6 +309,48 @@ namespace MultiLabs.Migrations
                     b.ToTable("Locals");
                 });
 
+            modelBuilder.Entity("MultiLabs.Models.Result", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Results");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Negativo"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Positivo"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Inconclusivo"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Name = "Outro Valor"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Name = "Não realizado"
+                        });
+                });
+
             modelBuilder.Entity("MultiLabs.Models.Schedule", b =>
                 {
                     b.Property<int>("Id")
@@ -325,6 +367,9 @@ namespace MultiLabs.Migrations
                     b.Property<int?>("LaboratoryId")
                         .HasColumnType("int");
 
+                    b.Property<int?>("ResultId")
+                        .HasColumnType("int");
+
                     b.Property<int?>("TestId")
                         .HasColumnType("int");
 
@@ -333,9 +378,15 @@ namespace MultiLabs.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("ClientId");
+
                     b.HasIndex("LaboratoryId");
 
+                    b.HasIndex("ResultId");
+
                     b.HasIndex("TestId");
+
+                    b.HasIndex("TesterId");
 
                     b.ToTable("Schedules");
                 });
@@ -449,15 +500,15 @@ namespace MultiLabs.Migrations
                         {
                             Id = 1,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "22937bd8-134e-48e8-9dba-e547ed5c8f77",
+                            ConcurrencyStamp = "52810ff8-d1f3-4d9f-826b-ed4fc2b2a2ca",
                             Email = "admin@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = true,
                             NormalizedEmail = "ADMIN@GMAIL.COM",
                             NormalizedUserName = "ADMIN@GMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEPuh7Y+6vxNZpSl/0T8FMTV2NNaMxYNBSbGTWJq5qE8f2Fg9n4rh12qjkw3yRT50ow==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEJwgzswJ1Eil0M6FYBG8aRF5w5KJn2GoPGHrwocghvofFhg+W/f9Mv5u9LuRsqqEfg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "6bb75983-6b42-48ea-9ee8-7e1e40cb489e",
+                            SecurityStamp = "17fd09ad-646b-47a3-a096-7ee388315663",
                             TwoFactorEnabled = false,
                             UserName = "admin@gmail.com"
                         },
@@ -465,15 +516,15 @@ namespace MultiLabs.Migrations
                         {
                             Id = 6,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "bf6f9adf-6e17-4d58-8738-c130713dbff0",
+                            ConcurrencyStamp = "ce129bd6-db74-4ff4-945b-63405b133405",
                             Email = "tester6@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = true,
                             NormalizedEmail = "TESTER6@GMAIL.COM",
                             NormalizedUserName = "TESTER6@GMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAECo3dkFRmRplz/TOoulGah582CQYaZw9zROsco2jdRv61wUUezewiF377a32cupP+w==",
+                            PasswordHash = "AQAAAAEAACcQAAAAENd/MWSt2oTBpz9/zSKYo09mIyYzEFipUPgu6cXWH4t2jIsCxDOe5yikTSuKRJa++w==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "a6703e18-3b1c-4a0b-a12d-d524bfb74db2",
+                            SecurityStamp = "bbfc0300-9116-4369-b136-89e798aa8f41",
                             TwoFactorEnabled = false,
                             UserName = "tester6@gmail.com"
                         },
@@ -481,15 +532,15 @@ namespace MultiLabs.Migrations
                         {
                             Id = 7,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "a950feae-678d-486f-beb4-8f39f11503f8",
+                            ConcurrencyStamp = "dbbda3a9-e5da-4a0b-9ea3-985f80f2ee7a",
                             Email = "tester7@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = true,
                             NormalizedEmail = "TESTER7@GMAIL.COM",
                             NormalizedUserName = "TESTER7@GMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEJfuLV/LEQoQAWRgkGWQMNyOh+G1+Mswa0QqYuOqx/lrcsHSusrGOd3Xf+rocy05vw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEEnAxlaQC80kfhGXNiKJvAnfFvxvBjMK+ydLqbD8R5Y9lEiuNeWGTR4akbZs+VFNTQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "bbb57a4a-1b8d-4490-9e03-2fa499df81e6",
+                            SecurityStamp = "cb71e80a-45b1-4ff2-9bbe-fa6b866fc15d",
                             TwoFactorEnabled = false,
                             UserName = "tester7@gmail.com"
                         },
@@ -497,15 +548,15 @@ namespace MultiLabs.Migrations
                         {
                             Id = 8,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "63b1ed9a-f2f7-4a20-9ac1-7382a7e01b50",
+                            ConcurrencyStamp = "b25d0be3-c543-4243-9f55-60a340bba5ed",
                             Email = "tester8@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = true,
                             NormalizedEmail = "TESTER8@GMAIL.COM",
                             NormalizedUserName = "TESTER8@GMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEMxn4veKXI0DmTMKhL9O+fN/EI+BTA7gpWDat7yDgyT+Wu3dZfYARXw0giww/ycSFA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEIlYJ6hsdAicjLQM8EIkHVhmwYaK+5bV1bJhXIh8NxcMQ/IsnNurAFvgFCbHqBJAGw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "155f5848-0531-445f-81e9-b2cafdad1577",
+                            SecurityStamp = "0583192d-89ad-405b-83d7-5ed770bf932b",
                             TwoFactorEnabled = false,
                             UserName = "tester8@gmail.com"
                         },
@@ -513,15 +564,15 @@ namespace MultiLabs.Migrations
                         {
                             Id = 9,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "49047475-08fc-40fa-a216-41dde2ec1623",
+                            ConcurrencyStamp = "a7bcfb88-f5f5-4585-85d8-d905d7e949a8",
                             Email = "tester9@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = true,
                             NormalizedEmail = "TESTER9@GMAIL.COM",
                             NormalizedUserName = "TESTER9@GMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEEemx7hd6BdF6tcNMEsMJzESqtqxPaSDsl2NdWFM0+hNiza+rJ8UKCyY5wYt8shNaQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEP/tM304qDjcYzAItF0l+E+qJ0lK4J/fPuabXljPR9vzeQ0UcQfAgeJiymURO2293A==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "fd9fbd46-be3c-4439-92c7-c5e78ee1fa42",
+                            SecurityStamp = "81fc580a-5e50-4447-add2-6db80b1d6f47",
                             TwoFactorEnabled = false,
                             UserName = "tester9@gmail.com"
                         },
@@ -529,15 +580,15 @@ namespace MultiLabs.Migrations
                         {
                             Id = 10,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "8bc1ee26-9f93-4f10-89eb-f2ce4c179d84",
+                            ConcurrencyStamp = "5106ab5b-96ca-45cb-b29d-c840a0a72768",
                             Email = "tester10@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = true,
                             NormalizedEmail = "TESTER10@GMAIL.COM",
                             NormalizedUserName = "TESTER10@GMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAELWrlNSp0SqB4UUxlRBbLkm05bDRrjbYK7stDJ32nkhXn6NRdBkpPH7Ta6+v5IW7IQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEHnOplSxipqonsXr9trPhE/sW4FH0ZjsqVps3YfmUUOcr+Bl6f252hB83jTAj5LB4w==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "50f7c695-824f-4fb8-bf3f-46655b3982de",
+                            SecurityStamp = "8772004d-c544-49b5-bdac-61e64f9ef095",
                             TwoFactorEnabled = false,
                             UserName = "tester10@gmail.com"
                         },
@@ -545,15 +596,15 @@ namespace MultiLabs.Migrations
                         {
                             Id = 11,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "c70ed4cc-330f-4b89-93c4-894b8a5ece3f",
+                            ConcurrencyStamp = "a2e1ae67-d3b3-4ba0-b5f6-3a9318675380",
                             Email = "tester11@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = true,
                             NormalizedEmail = "TESTER11@GMAIL.COM",
                             NormalizedUserName = "TESTER11@GMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEO9Nuan6DUsPy4twBQdvvXzludm7SFRb4fUyVQP49e/MhOnmfBckuQrSg7O8elLH9w==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEMBzpun+IRg03s8xt4PUXUTFT63AJyNZO0M066IGK7gi15GE8xf2Gb96M2uMg29q9w==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "5d10d72b-3c67-40ba-a210-74d0cd68b1fb",
+                            SecurityStamp = "68427a5f-e201-43bf-871a-cecb036c902f",
                             TwoFactorEnabled = false,
                             UserName = "tester11@gmail.com"
                         },
@@ -561,15 +612,15 @@ namespace MultiLabs.Migrations
                         {
                             Id = 12,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "017e1ab7-f117-4ab7-ac21-a7cdf3877230",
+                            ConcurrencyStamp = "95005900-79c4-4444-a217-744efc087efb",
                             Email = "tester12@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = true,
                             NormalizedEmail = "TESTER12@GMAIL.COM",
                             NormalizedUserName = "TESTER12@GMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEBpHENQvK1eEQ470IfED4/D+jGIZrpPrqhuSTKBNi5w9Sjl+zdxOtINOzKqVw4u7YA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEPYryKrxnuSPmri6Ohx1E9eLWpxOxflgWOMPDznFNILxL6G8Bpkv/ofXnLSnke6MBg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "18b4bb0a-75bf-4b7f-bb52-629163618291",
+                            SecurityStamp = "fc8b3951-7e0e-46ef-b78d-492968634e65",
                             TwoFactorEnabled = false,
                             UserName = "tester12@gmail.com"
                         },
@@ -577,15 +628,15 @@ namespace MultiLabs.Migrations
                         {
                             Id = 13,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "e8925b4c-4aa4-4be5-8fd0-8dac2ca20827",
+                            ConcurrencyStamp = "34c2a1c3-ab14-445a-ab4d-a55a5af90a43",
                             Email = "tester13@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = true,
                             NormalizedEmail = "TESTER13@GMAIL.COM",
                             NormalizedUserName = "TESTER13@GMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEKGfbgh635hyyF5C1SPcqcJApx41VoSqjKrpZa3UYZ4/UDtB5YVpTaM9KcDRu3eIJg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEK8Jz6B6TnEo4CrUtOLN58ZZor4xsdpNGe5GxHmMOwMDSgH0Dq9xGakeuqCnzVuZLA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "ec6e2995-7392-4142-b736-fa72801ec4a9",
+                            SecurityStamp = "1e409e25-2b42-4391-866e-d8678953772a",
                             TwoFactorEnabled = false,
                             UserName = "tester13@gmail.com"
                         },
@@ -593,15 +644,15 @@ namespace MultiLabs.Migrations
                         {
                             Id = 14,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "0f3a730e-bec8-45e1-866c-55f12ca376a6",
+                            ConcurrencyStamp = "8203ef67-1ec3-44e1-8c69-2c97f2e4991a",
                             Email = "tester14@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = true,
                             NormalizedEmail = "TESTER14@GMAIL.COM",
                             NormalizedUserName = "TESTER14@GMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEKNdBhWeQMdhxJJOqDHUuVbKRNNqdiKmgGDEIiL4F8loMU+eqt42zm78Fr3G0UUjmQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEG+zUl7no/q0VCgzNUTzRJU826B86nn6JjcMusCdqSP0LpJR9oEleBVfmLjZiJeZWQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "b8562d0d-24b6-4a58-a8c8-0cbee40df111",
+                            SecurityStamp = "a3676cc7-636e-4156-bbf9-3e2584a5ec53",
                             TwoFactorEnabled = false,
                             UserName = "tester14@gmail.com"
                         },
@@ -609,15 +660,15 @@ namespace MultiLabs.Migrations
                         {
                             Id = 15,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "f8012992-c9af-4df1-af44-de145ca37f1a",
+                            ConcurrencyStamp = "061e1b44-c2da-434a-bf7d-828d08e53fc1",
                             Email = "tester15@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = true,
                             NormalizedEmail = "TESTER15@GMAIL.COM",
                             NormalizedUserName = "TESTER15@GMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEEO6cTtm0wj6rli8Cal9+5NaMst3nRsglLD33bt5NSUawDxnU/qXrJSbkJEYoWjKcQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEOCyC1+fGqSTUMkVT8Y7vZ1/tGmcDp8HxLU7Ib+mmFGgApNEyOYUEUBavG00OtxLjg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "1898e05d-a6cf-4b51-a96e-4c2e9c094334",
+                            SecurityStamp = "2928170f-5ebc-43d3-8011-da54d848ffc4",
                             TwoFactorEnabled = false,
                             UserName = "tester15@gmail.com"
                         });
@@ -729,17 +780,39 @@ namespace MultiLabs.Migrations
 
             modelBuilder.Entity("MultiLabs.Models.Schedule", b =>
                 {
+                    b.HasOne("MultiLabs.Models.User", "Client")
+                        .WithMany()
+                        .HasForeignKey("ClientId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("MultiLabs.Models.Laboratory", "Laboratory")
                         .WithMany()
                         .HasForeignKey("LaboratoryId");
+
+                    b.HasOne("MultiLabs.Models.Result", "Result")
+                        .WithMany()
+                        .HasForeignKey("ResultId");
 
                     b.HasOne("MultiLabs.Models.Test", "Test")
                         .WithMany()
                         .HasForeignKey("TestId");
 
+                    b.HasOne("MultiLabs.Models.User", "Tester")
+                        .WithMany()
+                        .HasForeignKey("TesterId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Client");
+
                     b.Navigation("Laboratory");
 
+                    b.Navigation("Result");
+
                     b.Navigation("Test");
+
+                    b.Navigation("Tester");
                 });
 
             modelBuilder.Entity("MultiLabs.Models.TimeSlots", b =>

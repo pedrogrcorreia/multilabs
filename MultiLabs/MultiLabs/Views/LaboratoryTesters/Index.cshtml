@@ -7,8 +7,8 @@
 <h1>Index</h1>
 
 <p>
-    <a asp-action="Create">Create New</a> |
-    <a asp-action="Register">Register New Tester</a>
+    <a asp-action="Create">Associar técnico a laboratório</a> |
+    <a asp-action="Register">Registar um novo técnico</a>
 </p>
 <table class="table">
     <thead>
@@ -26,10 +26,10 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Laboratory.Id)
+                @Html.DisplayFor(modelItem => item.Laboratory.Name)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.User.Id)
+                @Html.DisplayFor(modelItem => item.User.Email)
             </td>
             <td>
                 @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |

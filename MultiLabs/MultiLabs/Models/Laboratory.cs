@@ -11,9 +11,10 @@ namespace MultiLabs.Models {
 
         public int Id { get; set; }
 
+        [Display(Name = "Laboratório")]
         public string Name { get; set; }
 
-        [Display(Name ="Local")]
+        [Display(Name ="Cidade")]
         public int? LocalId { get; set; }
         public Local Local { get; set; }
 

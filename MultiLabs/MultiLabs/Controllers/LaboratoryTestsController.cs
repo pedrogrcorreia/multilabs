@@ -9,9 +9,12 @@ using Microsoft.EntityFrameworkCore;
 using MultiLabs.Data;
 using MultiLabs.Models;
 using MultiLabs.ViewModels;
+using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
 
 namespace MultiLabs.Controllers
 {
+    [Authorize(Roles=("LabManager"))]
     public class LaboratoryTestsController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -54,7 +57,7 @@ namespace MultiLabs.Controllers
                     _context.Add(laboratoryTest);
                     await _context.SaveChangesAsync();
                     return RedirectToAction(nameof(Index), new { LaboratoryId =  laboratoryTest.LaboratoryId } );
-                } catch(DbUpdateException e) {
+                } catch(DbUpdateException) {
                     ViewData["LaboratoryId"] = new SelectList(_context.Laboratories, "Id", "Name", laboratoryTest.LaboratoryId);
                     ViewData["TestId"] = new SelectList(_context.Tests, "Id", "Name", laboratoryTest.TestId);
                     ViewBag.Error = "That laboratory already has that test.";

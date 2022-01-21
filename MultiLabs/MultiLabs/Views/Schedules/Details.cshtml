@@ -1,26 +1,26 @@
 ﻿@model MultiLabs.Models.Schedule
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Detalhes Agendamento";
 }
 
-<h1>Details</h1>
+<h1>Detalhes</h1>
 
 <div>
-    <h4>Schedule</h4>
+    <h4>Agendamento</h4>
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Test)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Test.Id)
+            @Html.DisplayFor(model => model.Test.Name)
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Laboratory)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Laboratory.Id)
+            @Html.DisplayFor(model => model.Laboratory.Name)
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.DateTime)
@@ -28,9 +28,35 @@
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.DateTime)
         </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Client)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Client.UserName)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Tester)
+        </dt>
+        <dd class = "col-sm-10">
+            @if (Model.TesterId != 1) {
+                @Html.DisplayFor(model => model.Tester.UserName)
+            } else {
+                <a style="color:red">Sem técnico atribuído!</a>
+            }
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Result)
+        </dt>
+        <dd class = "col-sm-10">
+            @if(Model.ResultId != null) {
+                @Html.DisplayFor(model => model.Result.Name)
+            }else{
+                <a style="color:red">Ainda sem resultado!</a>
+            }
+        </dd>
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a href="@ViewData["Reffer"]">Voltar</a>
+    @*<a asp-action="Index">Voltar</a>*@
 </div>

@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using MultiLabs.Data;
 using MultiLabs.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace MultiLabs.Controllers
 {
@@ -20,10 +22,26 @@ namespace MultiLabs.Controllers
         }
 
         // GET: Laboratories
+        [Authorize(Roles=("LabManager, Client, LabTester"))]
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Laboratories.Include(l => l.Local);
-            return View(await applicationDbContext.ToListAsync());
+            //IQueryable<Laboratory> applicationDbContext;
+            var userRole = User.FindFirstValue(ClaimTypes.Role);
+            var userid = Int32.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+
+            var laboratories = _context.Laboratories.Include(l => l.Local).AsQueryable();
+
+            if(userRole == "LabManager") {
+                //applicationDbContext = _context.Laboratories.Include(l => l.Local).Where(l => l.UserId == userid); // Devolve apenas os labs que criou
+                laboratories = laboratories.Where(l => l.UserId == userid);
+            } else if(userRole == "Client") {
+                //applicationDbContext = _context.Laboratories.Include(l => l.Local); // Devolve todos os laboratorios para o cliente
+            } else {
+                var testerLaboratories = _context.LaboratoryTesters.Include(l => l.Laboratory.Local).Where(l => l.UserId == userid).AsQueryable();
+                laboratories = testerLaboratories.Select(l => l.Laboratory);
+                //applicationDbContext = testerLaboratories.Select(l => l.Laboratory).Include(l => l.Local);
+            }
+            return View(await laboratories.ToListAsync());
         }
 
         // GET: Laboratories/Details/5
@@ -59,6 +77,7 @@ namespace MultiLabs.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Name,LocalId")] Laboratory laboratory)
         {
+            laboratory.UserId = Int32.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
             if (ModelState.IsValid)
             {
                 _context.Add(laboratory);
