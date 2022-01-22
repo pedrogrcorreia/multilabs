@@ -4,10 +4,10 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
-@if (User.IsInRole("LabManager")) {
+<h1>Laboratórios</h1>
+@if (User.IsInRole("Admin") || User.IsInRole("LabManager")) {
     <p>
-        <a asp-action="Create">Create New</a>
+        <a asp-action="Create">Criar Laboratório</a>
     </p>
 }
 <table class="table">
@@ -24,33 +24,37 @@
     </thead>
     <tbody>
 @foreach (var item in Model) {
-            <tr>
+        <tr>
                 <td>
                     @*Html.DisplayFor(modelItem => item.Name)*@
-                    @if (User.IsInRole("LabManager")) {
+                    @*if (User.IsInRole("LabManager")) {
                         @Html.ActionLink(item.Name, "Index", "LaboratoryTests", new { LaboratoryId = item.Id}, null)
                     }else{
                         @Html.DisplayFor(modelItem => item.Name)
-                    }
-            </td>
+                    }*@
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Local.Name)
             </td>
-            @if (User.IsInRole("LabManager")) {
+                @if (User.IsInRole("Admin") || User.IsInRole("LabManager")) {
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    @Html.ActionLink("Testes disponibilizados", "Index", "LaboratoryTests", new { LaboratoryId = item.Id}, null) |
+                    @Html.ActionLink("Gerir vagas", "Index", "TimeSlots", new { LaboratoryId = item.Id}, null) |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Eliminar Laboratório</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Detalhes</a>
                 </td>
-            }
+                }
                 @if (User.IsInRole("LabTester")) {
                     <td>
-                        @Html.ActionLink("Ver agendamentos", "Index", "Schedules", new { LaboratoryId = item.Id}, null)
+                        @Html.ActionLink("Ver agendamentos", "Index", "Schedules", new { LaboratoryId = item.Id}, null) |
+                        <a asp-action="Details" asp-route-id="@item.Id">Detalhes</a>
                     </td>
                 }
                 @if (User.IsInRole("Client")) {
                     <td>
-                         @Html.ActionLink("Agendar", "Create", "Schedules", new { LaboratoryId = item.Id}, null)
+                        @Html.ActionLink("Agendar", "Create", "Schedules", new { LaboratoryId = item.Id}, null) |
+                        <a asp-action="Details" asp-route-id="@item.Id">Detalhes</a>
                     </td>
                 }
             </tr>

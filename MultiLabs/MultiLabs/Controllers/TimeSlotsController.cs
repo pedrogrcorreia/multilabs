@@ -12,7 +12,7 @@ using System.Security.Claims;
 
 namespace MultiLabs.Controllers
 {
-    [Authorize(Roles=("LabManager"))]
+    [Authorize(Roles=("Admin, LabManager"))]
     public class TimeSlotsController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -23,9 +23,23 @@ namespace MultiLabs.Controllers
         }
 
         // GET: TimeSlots
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int? LaboratoryId)
         {
-            var applicationDbContext = _context.TimeSlots.Include(t => t.Laboratory);
+            int userId = Int32.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+            var userRole = User.FindFirstValue(ClaimTypes.Role);
+
+            var applicationDbContext = _context.TimeSlots.Include(t => t.Laboratory).AsQueryable();
+
+            if (userRole == "LabManager") {
+                applicationDbContext = applicationDbContext.Where(l => l.Laboratory.UserId == userId);
+                if (LaboratoryId != null) {
+                    applicationDbContext = applicationDbContext.Where(l => l.LaboratoryId == LaboratoryId);
+                }
+            } else {
+                if (LaboratoryId != null) {
+                    applicationDbContext = applicationDbContext.Where(l => l.LaboratoryId == LaboratoryId);
+                }
+            }
             return View(await applicationDbContext.ToListAsync());
         }
 
@@ -49,9 +63,15 @@ namespace MultiLabs.Controllers
         }
 
         // GET: TimeSlots/Create
-        public IActionResult Create()
+        public IActionResult Create(int? LaboratoryId)
         {
-            ViewData["LaboratoryId"] = new SelectList(_context.Laboratories, "Id", "Id");
+            int userId = Int32.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+            if (LaboratoryId != null) {
+                ViewData["LaboratoryId"] = new SelectList(_context.Laboratories.Where(l => l.UserId == userId && l.Id == LaboratoryId), "Id", "Name");
+            } else {
+                ViewData["LaboratoryId"] = new SelectList(_context.Laboratories.Where(l => l.UserId == userId), "Id", "Name");
+            }
+            ViewBag.LabId = LaboratoryId;
             return View();
         }
 
@@ -68,7 +88,7 @@ namespace MultiLabs.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["LaboratoryId"] = new SelectList(_context.Laboratories, "Id", "Id", timeSlots.LaboratoryId);
+            ViewData["LaboratoryId"] = new SelectList(_context.Laboratories, "Id", "Name", timeSlots.LaboratoryId);
             return View(timeSlots);
         }
 
@@ -85,7 +105,7 @@ namespace MultiLabs.Controllers
             {
                 return NotFound();
             }
-            ViewData["LaboratoryId"] = new SelectList(_context.Laboratories, "Id", "Id", timeSlots.LaboratoryId);
+            ViewData["LaboratoryId"] = new SelectList(_context.Laboratories, "Id", "Name", timeSlots.LaboratoryId);
             return View(timeSlots);
         }
 
@@ -121,7 +141,7 @@ namespace MultiLabs.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["LaboratoryId"] = new SelectList(_context.Laboratories, "Id", "Id", timeSlots.LaboratoryId);
+            ViewData["LaboratoryId"] = new SelectList(_context.Laboratories, "Id", "Name", timeSlots.LaboratoryId);
             return View(timeSlots);
         }
 

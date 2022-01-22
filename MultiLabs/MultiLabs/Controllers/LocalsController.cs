@@ -12,7 +12,7 @@ using System.Security.Claims;
 
 namespace MultiLabs.Controllers
 {
-    [Authorize(Roles="Admin")]
+    [Authorize(Roles="Admin, LabManager")]
     public class LocalsController : Controller
     {
         private readonly ApplicationDbContext _context;

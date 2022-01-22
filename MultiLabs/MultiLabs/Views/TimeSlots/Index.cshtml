@@ -1,26 +1,27 @@
 ﻿@model IEnumerable<MultiLabs.Models.TimeSlots>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Vagas";
 }
 
-<h1>Index</h1>
+<h1>Gestão de Vagas</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create">Criar slots para laboratório</a>
 </p>
 <table class="table">
     <thead>
         <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Laboratory)
+            </th>
             <th>
                 @Html.DisplayNameFor(model => model.DateTime)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.AvailableSlots)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Laboratory)
-            </th>
+
             <th></th>
         </tr>
     </thead>
@@ -28,18 +29,17 @@
 @foreach (var item in Model) {
         <tr>
             <td>
+                @Html.DisplayFor(modelItem => item.Laboratory.Name)
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.DateTime)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.AvailableSlots)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Laboratory.Id)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                @Html.ActionLink("Criar Vagas", "Create", "TimeSlots", new { LaboratoryId = item.Laboratory.Id}, null) |
+                <a asp-action="Delete" asp-route-id="@item.Id">Eliminar vagas</a>
             </td>
         </tr>
 }

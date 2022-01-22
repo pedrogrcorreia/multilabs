@@ -4,6 +4,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
+using System.ComponentModel.DataAnnotations;
+
 namespace MultiLabs.Roles {
     static public class RolesUtils {
         private static List<IdentityRole<int>> roles = new List<IdentityRole<int>> {

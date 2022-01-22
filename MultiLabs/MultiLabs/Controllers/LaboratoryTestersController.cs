@@ -19,7 +19,7 @@ using System.Security.Claims;
 
 namespace MultiLabs.Controllers
 {
-    [Authorize(Roles = ("LabManager"))]
+    [Authorize(Roles = ("Admin, LabManager"))]
     public class LaboratoryTestersController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -34,15 +34,20 @@ namespace MultiLabs.Controllers
         // GET: LaboratoryTesters
         public async Task<IActionResult> Index()
         {
+            var applicationDbContext = _context.LaboratoryTesters.Include(l => l.Laboratory).Include(l => l.User).AsQueryable();
+
             var userid = Int32.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
-            var applicationDbContext = _context.LaboratoryTesters.Include(l => l.Laboratory).Include(l => l.User).Where(l => l.Laboratory.User.Id == userid);
+            var userRole = User.FindFirstValue(ClaimTypes.Role);
+            if (userRole == "LabManager") {
+                applicationDbContext = applicationDbContext.Where(l => l.Laboratory.User.Id == userid);
+            }
             return View(await applicationDbContext.ToListAsync());
         }
 
         // GET: LaboratoryTesters/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(int? LaboratoryId, int? UserId)
         {
-            if (id == null)
+            if (LaboratoryId == null || UserId == null)
             {
                 return NotFound();
             }
@@ -50,7 +55,7 @@ namespace MultiLabs.Controllers
             var laboratoryTesters = await _context.LaboratoryTesters
                 .Include(l => l.Laboratory)
                 .Include(l => l.User)
-                .FirstOrDefaultAsync(m => m.LaboratoryId == id);
+                .FirstOrDefaultAsync(m => m.LaboratoryId == LaboratoryId && m.UserId == UserId);
             if (laboratoryTesters == null)
             {
                 return NotFound();
@@ -63,8 +68,13 @@ namespace MultiLabs.Controllers
         public IActionResult Create()
         {
             var userid = Int32.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+            var userRole = User.FindFirstValue(ClaimTypes.Role);
             var users = _context.UserRoles.Where(u => u.RoleId == 3).Select(u => u.UserId).ToList();
-            ViewData["LaboratoryId"] = new SelectList(_context.Laboratories.Where(l => l.UserId == userid), "Id", "Name");
+            if (userRole == "LabManager") {
+                ViewData["LaboratoryId"] = new SelectList(_context.Laboratories.Where(l => l.UserId == userid), "Id", "Name");
+            } else {
+                ViewData["LaboratoryId"] = new SelectList(_context.Laboratories, "Id", "Name");
+            }
             ViewData["UserId"] = new SelectList(_context.Users.Where(u => users.Contains(u.Id)), "Id", "UserName");
             return View();
         }
@@ -88,14 +98,14 @@ namespace MultiLabs.Controllers
         }
 
         // GET: LaboratoryTesters/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(int? LaboratoryId, int? UserId)
         {
-            if (id == null)
+            if (LaboratoryId == null || UserId == null)
             {
                 return NotFound();
             }
 
-            var laboratoryTesters = await _context.LaboratoryTesters.FindAsync(id);
+            var laboratoryTesters = await _context.LaboratoryTesters.FindAsync(LaboratoryId, UserId);
             if (laboratoryTesters == null)
             {
                 return NotFound();
@@ -143,9 +153,9 @@ namespace MultiLabs.Controllers
         }
 
         // GET: LaboratoryTesters/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> Delete(int? LaboratoryId, int? UserId)
         {
-            if (id == null)
+            if (LaboratoryId == null || UserId == null)
             {
                 return NotFound();
             }
@@ -153,7 +163,7 @@ namespace MultiLabs.Controllers
             var laboratoryTesters = await _context.LaboratoryTesters
                 .Include(l => l.Laboratory)
                 .Include(l => l.User)
-                .FirstOrDefaultAsync(m => m.LaboratoryId == id);
+                .FirstOrDefaultAsync(m => m.LaboratoryId == LaboratoryId && m.UserId == UserId);
             if (laboratoryTesters == null)
             {
                 return NotFound();
@@ -165,9 +175,9 @@ namespace MultiLabs.Controllers
         // POST: LaboratoryTesters/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(int LaboratoryId, int UserId)
         {
-            var laboratoryTesters = await _context.LaboratoryTesters.FindAsync(id);
+            var laboratoryTesters = await _context.LaboratoryTesters.FindAsync(LaboratoryId, UserId);
             _context.LaboratoryTesters.Remove(laboratoryTesters);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));

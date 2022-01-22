@@ -23,13 +23,13 @@ namespace MultiLabs.Migrations
                         column: x => x.LaboratoryId,
                         principalTable: "Laboratories",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Schedules_Tests_TestId",
                         column: x => x.TestId,
                         principalTable: "Tests",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.UpdateData(

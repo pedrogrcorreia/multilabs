@@ -164,56 +164,6 @@ namespace MultiLabs.Migrations
                         {
                             UserId = 1,
                             RoleId = 1
-                        },
-                        new
-                        {
-                            UserId = 6,
-                            RoleId = 3
-                        },
-                        new
-                        {
-                            UserId = 7,
-                            RoleId = 3
-                        },
-                        new
-                        {
-                            UserId = 8,
-                            RoleId = 3
-                        },
-                        new
-                        {
-                            UserId = 9,
-                            RoleId = 3
-                        },
-                        new
-                        {
-                            UserId = 10,
-                            RoleId = 3
-                        },
-                        new
-                        {
-                            UserId = 11,
-                            RoleId = 3
-                        },
-                        new
-                        {
-                            UserId = 12,
-                            RoleId = 3
-                        },
-                        new
-                        {
-                            UserId = 13,
-                            RoleId = 3
-                        },
-                        new
-                        {
-                            UserId = 14,
-                            RoleId = 3
-                        },
-                        new
-                        {
-                            UserId = 15,
-                            RoleId = 3
                         });
                 });
 
@@ -324,6 +274,11 @@ namespace MultiLabs.Migrations
                     b.ToTable("Results");
 
                     b.HasData(
+                        new
+                        {
+                            Id = 100,
+                            Name = "Registado"
+                        },
                         new
                         {
                             Id = 1,
@@ -500,177 +455,17 @@ namespace MultiLabs.Migrations
                         {
                             Id = 1,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "52810ff8-d1f3-4d9f-826b-ed4fc2b2a2ca",
+                            ConcurrencyStamp = "13280ef2-649b-4e16-949d-a874ea1cc201",
                             Email = "admin@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = true,
                             NormalizedEmail = "ADMIN@GMAIL.COM",
                             NormalizedUserName = "ADMIN@GMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEJwgzswJ1Eil0M6FYBG8aRF5w5KJn2GoPGHrwocghvofFhg+W/f9Mv5u9LuRsqqEfg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEJTzshUXYVdcPYFtRSQYryNQIDxTNNahNz08w73Y+yJKAQ3M7pBH1sgvEEq0RUmkXA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "17fd09ad-646b-47a3-a096-7ee388315663",
+                            SecurityStamp = "75c28995-7e87-4b22-8b3f-e6782b8e227e",
                             TwoFactorEnabled = false,
                             UserName = "admin@gmail.com"
-                        },
-                        new
-                        {
-                            Id = 6,
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "ce129bd6-db74-4ff4-945b-63405b133405",
-                            Email = "tester6@gmail.com",
-                            EmailConfirmed = true,
-                            LockoutEnabled = true,
-                            NormalizedEmail = "TESTER6@GMAIL.COM",
-                            NormalizedUserName = "TESTER6@GMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAENd/MWSt2oTBpz9/zSKYo09mIyYzEFipUPgu6cXWH4t2jIsCxDOe5yikTSuKRJa++w==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "bbfc0300-9116-4369-b136-89e798aa8f41",
-                            TwoFactorEnabled = false,
-                            UserName = "tester6@gmail.com"
-                        },
-                        new
-                        {
-                            Id = 7,
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "dbbda3a9-e5da-4a0b-9ea3-985f80f2ee7a",
-                            Email = "tester7@gmail.com",
-                            EmailConfirmed = true,
-                            LockoutEnabled = true,
-                            NormalizedEmail = "TESTER7@GMAIL.COM",
-                            NormalizedUserName = "TESTER7@GMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEEnAxlaQC80kfhGXNiKJvAnfFvxvBjMK+ydLqbD8R5Y9lEiuNeWGTR4akbZs+VFNTQ==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "cb71e80a-45b1-4ff2-9bbe-fa6b866fc15d",
-                            TwoFactorEnabled = false,
-                            UserName = "tester7@gmail.com"
-                        },
-                        new
-                        {
-                            Id = 8,
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "b25d0be3-c543-4243-9f55-60a340bba5ed",
-                            Email = "tester8@gmail.com",
-                            EmailConfirmed = true,
-                            LockoutEnabled = true,
-                            NormalizedEmail = "TESTER8@GMAIL.COM",
-                            NormalizedUserName = "TESTER8@GMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEIlYJ6hsdAicjLQM8EIkHVhmwYaK+5bV1bJhXIh8NxcMQ/IsnNurAFvgFCbHqBJAGw==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "0583192d-89ad-405b-83d7-5ed770bf932b",
-                            TwoFactorEnabled = false,
-                            UserName = "tester8@gmail.com"
-                        },
-                        new
-                        {
-                            Id = 9,
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "a7bcfb88-f5f5-4585-85d8-d905d7e949a8",
-                            Email = "tester9@gmail.com",
-                            EmailConfirmed = true,
-                            LockoutEnabled = true,
-                            NormalizedEmail = "TESTER9@GMAIL.COM",
-                            NormalizedUserName = "TESTER9@GMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEP/tM304qDjcYzAItF0l+E+qJ0lK4J/fPuabXljPR9vzeQ0UcQfAgeJiymURO2293A==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "81fc580a-5e50-4447-add2-6db80b1d6f47",
-                            TwoFactorEnabled = false,
-                            UserName = "tester9@gmail.com"
-                        },
-                        new
-                        {
-                            Id = 10,
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "5106ab5b-96ca-45cb-b29d-c840a0a72768",
-                            Email = "tester10@gmail.com",
-                            EmailConfirmed = true,
-                            LockoutEnabled = true,
-                            NormalizedEmail = "TESTER10@GMAIL.COM",
-                            NormalizedUserName = "TESTER10@GMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEHnOplSxipqonsXr9trPhE/sW4FH0ZjsqVps3YfmUUOcr+Bl6f252hB83jTAj5LB4w==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "8772004d-c544-49b5-bdac-61e64f9ef095",
-                            TwoFactorEnabled = false,
-                            UserName = "tester10@gmail.com"
-                        },
-                        new
-                        {
-                            Id = 11,
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "a2e1ae67-d3b3-4ba0-b5f6-3a9318675380",
-                            Email = "tester11@gmail.com",
-                            EmailConfirmed = true,
-                            LockoutEnabled = true,
-                            NormalizedEmail = "TESTER11@GMAIL.COM",
-                            NormalizedUserName = "TESTER11@GMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEMBzpun+IRg03s8xt4PUXUTFT63AJyNZO0M066IGK7gi15GE8xf2Gb96M2uMg29q9w==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "68427a5f-e201-43bf-871a-cecb036c902f",
-                            TwoFactorEnabled = false,
-                            UserName = "tester11@gmail.com"
-                        },
-                        new
-                        {
-                            Id = 12,
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "95005900-79c4-4444-a217-744efc087efb",
-                            Email = "tester12@gmail.com",
-                            EmailConfirmed = true,
-                            LockoutEnabled = true,
-                            NormalizedEmail = "TESTER12@GMAIL.COM",
-                            NormalizedUserName = "TESTER12@GMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEPYryKrxnuSPmri6Ohx1E9eLWpxOxflgWOMPDznFNILxL6G8Bpkv/ofXnLSnke6MBg==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "fc8b3951-7e0e-46ef-b78d-492968634e65",
-                            TwoFactorEnabled = false,
-                            UserName = "tester12@gmail.com"
-                        },
-                        new
-                        {
-                            Id = 13,
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "34c2a1c3-ab14-445a-ab4d-a55a5af90a43",
-                            Email = "tester13@gmail.com",
-                            EmailConfirmed = true,
-                            LockoutEnabled = true,
-                            NormalizedEmail = "TESTER13@GMAIL.COM",
-                            NormalizedUserName = "TESTER13@GMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEK8Jz6B6TnEo4CrUtOLN58ZZor4xsdpNGe5GxHmMOwMDSgH0Dq9xGakeuqCnzVuZLA==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "1e409e25-2b42-4391-866e-d8678953772a",
-                            TwoFactorEnabled = false,
-                            UserName = "tester13@gmail.com"
-                        },
-                        new
-                        {
-                            Id = 14,
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "8203ef67-1ec3-44e1-8c69-2c97f2e4991a",
-                            Email = "tester14@gmail.com",
-                            EmailConfirmed = true,
-                            LockoutEnabled = true,
-                            NormalizedEmail = "TESTER14@GMAIL.COM",
-                            NormalizedUserName = "TESTER14@GMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEG+zUl7no/q0VCgzNUTzRJU826B86nn6JjcMusCdqSP0LpJR9oEleBVfmLjZiJeZWQ==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "a3676cc7-636e-4156-bbf9-3e2584a5ec53",
-                            TwoFactorEnabled = false,
-                            UserName = "tester14@gmail.com"
-                        },
-                        new
-                        {
-                            Id = 15,
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "061e1b44-c2da-434a-bf7d-828d08e53fc1",
-                            Email = "tester15@gmail.com",
-                            EmailConfirmed = true,
-                            LockoutEnabled = true,
-                            NormalizedEmail = "TESTER15@GMAIL.COM",
-                            NormalizedUserName = "TESTER15@GMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEOCyC1+fGqSTUMkVT8Y7vZ1/tGmcDp8HxLU7Ib+mmFGgApNEyOYUEUBavG00OtxLjg==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "2928170f-5ebc-43d3-8011-da54d848ffc4",
-                            TwoFactorEnabled = false,
-                            UserName = "tester15@gmail.com"
                         });
                 });
 

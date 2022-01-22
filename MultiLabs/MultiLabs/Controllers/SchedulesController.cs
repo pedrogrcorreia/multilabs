@@ -88,6 +88,7 @@ namespace MultiLabs.Controllers {
         public async Task<IActionResult> Create([Bind("Id,TestId,LaboratoryId, DateTime")] Schedule schedule) {
             schedule.ClientId = Int32.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
             schedule.TesterId = 1;
+            schedule.ResultId = 100;
             if (ModelState.IsValid) {
                 _context.Add(schedule);
                 await _context.SaveChangesAsync();
@@ -209,6 +210,7 @@ namespace MultiLabs.Controllers {
                 .Include(s => s.Test)
                 .Include(s => s.Client)
                 .Include(s => s.Tester)
+                .Include(s => s.Laboratory.Local)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (schedule == null) {
                 return NotFound();

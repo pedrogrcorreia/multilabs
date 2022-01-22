@@ -5,7 +5,12 @@
 }
 
 <h1>Todos os Agendamentos</h1>
-<h5>Agendamentos dos seus laborátorios</h5>
+@if (User.IsInRole("LabTester")) {
+    <h5>Agendamentos dos seus laborátorios</h5>
+}
+@if (User.IsInRole("Client")) {
+    <h5>Os seus agendamentos</h5>
+}
 @if (ViewBag.Error != null)
 {
     <p style="color:red">@ViewBag.Error</p>

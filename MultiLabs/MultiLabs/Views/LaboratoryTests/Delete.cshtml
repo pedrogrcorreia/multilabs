@@ -1,14 +1,14 @@
 ﻿@model MultiLabs.Models.LaboratoryTest
 
 @{
-    ViewData["Title"] = "Delete";
+    ViewData["Title"] = "Testes";
 }
 
-<h1>Delete</h1>
+<h1>Remover teste</h1>
 
-<h3>Are you sure you want to delete this?</h3>
+<h3>Remover teste deste laboratório</h3>
 <div>
-    <h4>LaboratoryTest</h4>
+    <h4>Laboratório - Teste</h4>
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
@@ -28,7 +28,7 @@
     <form asp-action="Delete">
         <input type="hidden" asp-for="LaboratoryId" />
         <input type="hidden" asp-for="TestId" />
-        <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-action="Index">Back to List</a>
+        <input type="submit" value="Remover" class="btn btn-danger" /> |
+        <a asp-action="Index" asp-route-LaboratoryId="@ViewBag.LabId">Voltar</a>
     </form>
 </div>

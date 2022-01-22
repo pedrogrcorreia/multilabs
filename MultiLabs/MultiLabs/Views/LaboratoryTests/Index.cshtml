@@ -1,13 +1,13 @@
 ﻿@model IEnumerable<MultiLabs.Models.LaboratoryTest>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Testes por laboratório";
 }
 
-<h1>Index</h1>
+<h1>Testes por laboratório</h1>
 
 <p>
-    <a asp-action="Create" asp-route-LaboratoryId="@ViewBag.LaboratoryId">Create New</a>
+    <a asp-action="Create" asp-route-LaboratoryId="@ViewBag.LaboratoryId">Associar teste a laboratório</a>
 </p>
 <table class="table">
     <thead>
@@ -31,7 +31,7 @@
                 @Html.DisplayFor(modelItem => item.Test.Name)
             </td>
             <td>
-                @Html.ActionLink("Delete", "Delete", new { LaboratoryId = item.LaboratoryId, TestId = item.TestId})
+                @Html.ActionLink("Remover teste", "Delete", new { LaboratoryId = item.LaboratoryId, TestId = item.TestId})
             </td>
         </tr>
 }

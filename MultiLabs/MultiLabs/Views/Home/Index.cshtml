@@ -1,14 +1,14 @@
 ﻿@model IEnumerable<MultiLabs.Models.LaboratoryTest>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Testes";
 }
 
 <h1>Lista de Testes</h1>
 
 <form asp-action="Index" asp-controller="Home" method="get">
     <div class="form-inline">
-        <label>Filter by category:</label>&nbsp;
+        <label>Filtrar por localidade:</label>&nbsp;
         <div class="form-group">
             <select name="local" asp-items="@ViewBag.Locals" class="form-control"></select>
         </div>
@@ -46,7 +46,7 @@
 
 <form asp-action="Index" asp-controller="Home" method="get">
     <div class = "form-inline">
-        &nbsp;<button class="btn btn-info" type="submit">Remove filter</button>
+        &nbsp;<button class="btn btn-info" type="submit">Remover filtro</button>
         <input type="hidden" name="local" id="local" value="" />
     </div>
 </form>

@@ -14,7 +14,7 @@ using System.Security.Claims;
 
 namespace MultiLabs.Controllers
 {
-    [Authorize(Roles=("LabManager"))]
+    [Authorize(Roles=("Admin, LabManager"))]
     public class LaboratoryTestsController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -27,11 +27,24 @@ namespace MultiLabs.Controllers
         // GET: LaboratoryTests
         public async Task<IActionResult> Index(int? LaboratoryId) {
             IQueryable<LaboratoryTest> applicationDbContext;
-            if (LaboratoryId == null) {
-                applicationDbContext = _context.LaboratoryTests.Include(l => l.Laboratory).Include(l => l.Test);
+
+            var userid = Int32.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+            var userRole = User.FindFirstValue(ClaimTypes.Role);
+            if (userRole == "Admin") {
+                if (LaboratoryId == null) {
+                    applicationDbContext = _context.LaboratoryTests.Include(l => l.Laboratory).Include(l => l.Test);
+                } else {
+                    applicationDbContext = _context.LaboratoryTests.Include(l => l.Laboratory).Include(l => l.Test).Where(l => l.LaboratoryId == LaboratoryId);
+                }
+            } else {
+                if (LaboratoryId == null) {
+                    applicationDbContext = _context.LaboratoryTests.Include(l => l.Laboratory).Include(l => l.Test).Where(l => l.Laboratory.UserId == userid);
+                } else {
+                    applicationDbContext = _context.LaboratoryTests.Include(l => l.Laboratory).Include(l => l.Test).Where(l => l.LaboratoryId == LaboratoryId);
+                }
             }
             ViewBag.LaboratoryId = LaboratoryId;
-            applicationDbContext = _context.LaboratoryTests.Include(l => l.Laboratory).Include(l => l.Test).Where(l => l.LaboratoryId == LaboratoryId);
+            
             return View(await applicationDbContext.ToListAsync());
         }
 
@@ -85,7 +98,7 @@ namespace MultiLabs.Controllers
             {
                 return NotFound();
             }
-
+            ViewBag.LabId = LaboratoryId;
             return View(laboratoryTest);
         }
 

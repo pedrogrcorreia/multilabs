@@ -1,12 +1,12 @@
 ﻿@model MultiLabs.Models.LaboratoryTest
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Testes";
 }
 
-<h1>Create</h1>
+<h1>Associar novo teste</h1>
 
-<h4>LaboratoryTest</h4>
+<h4>Associar novo teste a um laboratório</h4>
 @if (ViewBag.Error != null)
 {
     <p style="color:red">@ViewBag.Error</p>
@@ -25,14 +25,14 @@
                 <select asp-for="TestId" class ="form-control" asp-items="ViewBag.TestId"></select>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Associar" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index" asp-route-LaboratoryId="@ViewBag.LabId">Back to List</a>
+    <a asp-action="Index" asp-route-LaboratoryId="@ViewBag.LabId">Voltar</a>
 </div>
 
 @section Scripts {

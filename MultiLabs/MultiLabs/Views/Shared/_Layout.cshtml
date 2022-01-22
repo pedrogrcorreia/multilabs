@@ -6,6 +6,7 @@
     <title>@ViewData["Title"] - MultiLabs</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
+
 </head>
 <body>
     <header>
@@ -23,7 +24,7 @@
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Laboratories" asp-action="Index">Laboratórios</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Laboratories" asp-action="Index">Agendar</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Schedules" asp-action="Index">Agendamentos</a>
                             </li>
                         }
                         @if (User.IsInRole("LabManager")) {
@@ -31,7 +32,13 @@
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Laboratories" asp-action="Index">Laboratórios</a>
                             </li>
                             <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Locals" asp-action="Index">Moradas</a>
+                            </li>
+                            <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="LaboratoryTesters" asp-action="Index">Técnicos</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="TimeSlots" asp-action="Index">Vagas</a>
                             </li>
                         }
                         @if (User.IsInRole("LabTester")) {
@@ -45,13 +52,28 @@
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Schedules" asp-action="IndexTester">Meus Testes</a>
                             </li>
                         }
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
+                        @if (User.IsInRole("Admin")) {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Laboratories" asp-action="Index">Laboratórios</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Locals" asp-action="Index">Moradas</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Tests" asp-action="Index">Testes</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="LaboratoryTesters" asp-action="Index">Técnicos</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Stats" asp-action="Index" asp-route-filter="Dia">Estatísticas</a>
+                            </li>
+
+                        }
                     </ul>
                     @if (User.IsInRole("LabTester")) {
                         <form class="d-flex" asp-action="Index" asp-controller="Schedules" method="get">
-                            <input class="form-control me-2" type="search" placeholder="Cliente" aria-label="Search" name="search">
+                            <input class="form-control me-2" type="search" placeholder="Cliente ou Data" aria-label="Search" name="search">
                             <button class="btn btn-sm btn-outline-secondary" type="submit">Procurar</button>
                         </form>
                     }

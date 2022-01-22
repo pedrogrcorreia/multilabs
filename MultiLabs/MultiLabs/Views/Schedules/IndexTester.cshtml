@@ -42,7 +42,11 @@
                 <a asp-action="Edit" asp-route-id="@item.Id">Tratar agendamento</a>
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Result.Name)
+                @if(item.ResultId != 100) {
+                    @Html.DisplayFor(i => item.Result.Name)
+            }else{
+                <a style="color:red">Ainda sem resultado!</a>
+            }
             </td>
         </tr>
 }

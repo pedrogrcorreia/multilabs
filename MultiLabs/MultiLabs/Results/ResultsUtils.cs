@@ -8,7 +8,8 @@ using MultiLabs.Models;
 namespace MultiLabs.Results {
 
     static public class ResultsUtils {
-            private static List<Result> results = new List<Result>() {
+        private static List<Result> results = new List<Result>() {
+            new Result { Id = 100, Name = "Registado" },
             new Result { Id = 1, Name = "Negativo" },
             new Result { Id = 2, Name = "Positivo" },
             new Result { Id = 3, Name = "Inconclusivo" },
@@ -24,7 +25,7 @@ namespace MultiLabs.Results {
 
         static public IEnumerable<SelectListItem> ResultSelectList {
             get {
-                return results.Select(r => new SelectListItem {
+                return results.Where(r => r.Id != 100).Select(r => new SelectListItem {
                     Text = r.Name,
                     Value = r.Id.ToString()
                 });

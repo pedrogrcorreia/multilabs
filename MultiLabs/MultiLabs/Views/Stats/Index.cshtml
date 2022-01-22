@@ -1,0 +1,77 @@
+﻿@model IEnumerable<MultiLabs.Models.Stats>
+
+@{
+    ViewData["Title"] = "Estatísticas";
+}
+
+<h1>Estatísticas</h1>
+
+<form asp-action="Index" asp-controller="Stats" method="get">
+    <div class="form-inline">
+        <label>Filtrar: </label>&nbsp;
+        <div class="form-group">
+            <select name="filter">
+              <option value="Dia">Dia</option>
+              <option value="Mes">Mês</option>
+              <option value="Semana">Semana</option>
+            </select>
+        </div>
+        <div class="form-group">
+            &nbsp;<button class="btn btn-info" type="submit">Filtrar</button>
+        </div>
+    </div>
+</form>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.DateTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Positive)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Negative)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Inconclusive)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Total)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                    @if(ViewBag.Filter == "Dia") {
+                        @item.DateTime.ToString("dd/MM/yyyy");
+                    }else if(ViewBag.Filter == "Semana") {
+                        @(item.DateTime.ToString("dd/MM/yyyy") + " - " + item.DateTime.AddDays(7).ToString("dd/MM/yyyy"));
+                    } else {
+                        @(char.ToUpper(item.DateTime.ToString("MMMM")[0]) + item.DateTime.ToString("MMMM").Substring(1));
+                    }
+                </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Positive)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Negative)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Inconclusive)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Total)
+            </td>
+            @*<td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>*@
+        </tr>
+}
+    </tbody>
+</table>

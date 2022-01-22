@@ -78,28 +78,9 @@ namespace MultiLabs.Data {
             };
 
             PasswordHasher<User> passwordHasher = new PasswordHasher<User>();
-            user.PasswordHash = passwordHasher.HashPassword(user, "123Vv#");
+            user.PasswordHash = passwordHasher.HashPassword(user, "admin123");
 
             builder.Entity<User>().HasData(user);
-
-            for(int i = 6; i<16; i++) {
-                email = new string("tester" + i + "@gmail.com");
-                user = new User() {
-                    Id = i,
-                    UserName = email,
-                    Email = email,
-                    NormalizedUserName = email.ToUpper(),
-                    NormalizedEmail = email.ToUpper(),
-                    LockoutEnabled = true,
-                    EmailConfirmed = true,
-                    SecurityStamp = Guid.NewGuid().ToString()
-                };
-
-                passwordHasher = new PasswordHasher<User>();
-                user.PasswordHash = passwordHasher.HashPassword(user, "123Vv#");
-
-                builder.Entity<User>().HasData(user);
-            }
         }
 
         private void SeedRoles(ModelBuilder builder) {
@@ -110,11 +91,6 @@ namespace MultiLabs.Data {
             builder.Entity<IdentityUserRole<int>>().HasData(
                 new IdentityUserRole<int>() { RoleId = 1, UserId = 1 }
             );
-            for (int i = 6; i < 16; i++) {
-                builder.Entity<IdentityUserRole<int>>().HasData(
-                    new IdentityUserRole<int>() { RoleId = 3, UserId = i }
-                );
-            }
         }
 
         private void SeedResults(ModelBuilder builder) {
