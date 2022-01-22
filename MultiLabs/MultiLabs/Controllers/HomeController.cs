@@ -30,7 +30,7 @@ namespace MultiLabs.Controllers {
 
             var locals = _context.Locals.OrderBy(l => l.Name).Select(l => l.Name);
 
-            ViewBag.Locals = locals.Select(c => new SelectListItem() { Text = c, Value = c }).ToList();
+            ViewBag.Locals = locals.Select(c => new SelectListItem() { Text = c, Value = c }).Distinct().ToList();
 
             return View(await laboratories.ToListAsync());
         }
